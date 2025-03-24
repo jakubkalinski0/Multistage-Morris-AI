@@ -5,17 +5,19 @@ import plotly.io as pio
 import networkx as nx
 import matplotlib.pyplot as plt
 
-from Maps import SIX_MEN_GRAPH,SIX_MEN_THREES
+from Maps import SIX_MEN_GRAPH,SIX_MEN_MILLS
 
 class SixMensMorrisBoard(Board):  
     BOARD_SIZE = 16
     PIECES_PER_PLAYER = 6
+
     def __init__(self):
-        super().__init__(board_size=self.BOARD_SIZE, pieces_per_player=self.PIECES_PER_PLAYER)
-        for v,k in enumerate(SIX_MEN_GRAPH):
-            for i in k:
-                print(v,i)
-                self.graph.addEdge(v, i)
+        graph=SIX_MEN_GRAPH
+        mills=SIX_MEN_MILLS
+        super().__init__(board_graph=graph, pieces_per_player=self.PIECES_PER_PLAYER, board_mills=mills)
+
+ 
+
     def print_map_3d(self):
         btwn = nk.centrality.Betweenness(self.graph)
         btwn.run()
@@ -44,4 +46,4 @@ class SixMensMorrisBoard(Board):
         plt.show()
 
 map = SixMensMorrisBoard()
-map.print_map()
+map.print_map_2d()
