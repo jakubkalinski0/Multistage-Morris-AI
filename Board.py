@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from subprocess import check_call
-from typing import List
+from typing import List, Tuple
+
 import networkit as nk
 
 from BoardState import BoardState
@@ -11,7 +12,7 @@ from GamePhase import GamePhase
 
 
 class Board(ABC):
-    def __init__(self, board_graph: int, pieces_per_player: int, board_mills):
+    def __init__(self, board_graph: Tuple[Tuple[int]], pieces_per_player: int, board_mills):
         self.board_size = len(board_graph)
         self.graph = nk.graph.Graph(self.board_size, directed=False) 
         self.pieces_per_player = pieces_per_player

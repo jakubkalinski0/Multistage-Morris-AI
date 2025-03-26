@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from Maps import SIX_MEN_GRAPH,SIX_MEN_MILLS
 
 class SixMensMorrisBoard(Board):  
-    BOARD_SIZE = 16
+    BOARD_SIZE = len(SIX_MEN_GRAPH)
     PIECES_PER_PLAYER = 6
 
     def __init__(self):
