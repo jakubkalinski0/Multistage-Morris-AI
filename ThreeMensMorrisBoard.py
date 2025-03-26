@@ -3,7 +3,7 @@ from Board import Board
 from Maps import THREE_MEN_GRAPH,THREE_MEN_MILLS
 
 
-class SixMensMorrisBoard(Board):  
+class ThreeMensMorrisBoard(Board):
     BOARD_SIZE = len(THREE_MEN_GRAPH)
     PIECES_PER_PLAYER = 3
 

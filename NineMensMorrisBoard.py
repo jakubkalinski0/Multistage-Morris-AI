@@ -4,7 +4,7 @@ from Maps import NINE_MEN_GRAPH,NINE_MEN_MILLS
 
 
 
-class SixMensMorrisBoard(Board):  
+class NineMensMorrisBoard(Board):
     BOARD_SIZE = len(NINE_MEN_GRAPH)
     PIECES_PER_PLAYER = 9
 
