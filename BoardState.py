@@ -29,10 +29,10 @@ class BoardState:
     def get_current_phase_for_player(self, player: Player) -> GamePhase:
         return self.game_phase_for_player[player]
 
-    def get_player_at_position(self, position: Position) -> Player:
+    def get_player_at_position(self, position: int) -> Player:
         return self.board[position]
 
-    def is_position_empty(self, position: Position) -> bool:
+    def is_position_empty(self, position: int) -> bool:
         return self.board[position] == Player.NONE
 
     def copy(self):

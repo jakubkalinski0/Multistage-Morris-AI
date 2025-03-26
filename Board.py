@@ -14,16 +14,20 @@ from GamePhase import GamePhase
 class Board(ABC):
     def __init__(self, board_graph: Tuple[Tuple[int]], pieces_per_player: int, board_mills):
         self.board_size = len(board_graph)
-        self.graph = nk.graph.Graph(self.board_size, directed=False) 
+        self.graph = nk.graph.Graph(self.board_size, directed=False)#tu chyba używanie biblioteki to trochę overkill 
         self.pieces_per_player = pieces_per_player
         self.mills = board_mills
         self.initialize_connections(board_graph)
+        self.initialize_board()
 
 
     def initialize_connections(self, board_graph):
         for v,k in enumerate(board_graph):
             for i in k:
                 self.graph.addEdge(v, i)
+
+    def initialize_board(self):
+        self.board_state = self.get_initial_board_state()
 
     def get_initial_board_state(self) -> BoardState:
         return BoardState(self.board_size, self.pieces_per_player)
@@ -48,13 +52,21 @@ class Board(ABC):
             
         return mills_counter
 
-    def get_legal_moves(self, state: BoardState,phase:GamePhase) -> List[Position]:
+    def get_legal_moves(self, state: BoardState,phase:GamePhase) -> List[int]:
         if phase == GamePhase.PLACEMENT:
-            return [i for i in range(self.board_size) if state.is_position_empty(Position(i))]
+            return [i for i in range(self.board_size) if state.is_position_empty(i)]
         
         if phase == GamePhase.MOVEMENT:
-            return NotImplemented
+            #return list of tuples of (from,to)
+            legal_moves=[]
+            for i in range(self.board_size):
+                if state.get_player_at_position(i)==state.current_player:
+                    for j in self.graph.iterNeighbors(i):
+                        if state.is_position_empty(j):
+                            legal_moves.append((i,j))
+            return legal_moves
         if phase == GamePhase.FLYING:
+            #nie rozumiem jak to ma działać to nie piszę tego
             return NotImplemented
 
 
