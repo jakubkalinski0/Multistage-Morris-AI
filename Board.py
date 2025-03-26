@@ -65,12 +65,16 @@ class Board(ABC):
                         if state.is_position_empty(j):
                             legal_moves.append((i,j))
             return legal_moves
+
         if phase == GamePhase.FLYING:
             #nie rozumiem jak to ma działać to nie piszę tego
             return NotImplemented
 
 
     def make_move(self, state: BoardState, move: Move, player: Player) -> BoardState:
+        """
+        Called when a move is made during the game in order to update the BoardState.
+        """
         return NotImplemented
 
     def check_if_game_is_over(self, state: BoardState) -> bool:
@@ -78,6 +82,3 @@ class Board(ABC):
 
     def get_winner(self, state: BoardState) -> Player:
         return Player.WHITE if state.pieces_from_player_currently_on_board[Player.WHITE] > state.pieces_from_player_currently_on_board[Player.BLACK] else Player.BLACK
-    
-
-    
