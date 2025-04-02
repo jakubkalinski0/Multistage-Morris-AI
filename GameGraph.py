@@ -69,11 +69,8 @@ class GameGraphGenerator:
         minimax(initial_state_int, True)
 
     def save_graph_to_file(self, filename: str):
-        """Save the graph to a text file."""
-        with open(filename, 'w') as file:
-            for node in self.graph.nodes:
-                edges = list(self.graph.successors(node))
-                file.write(f"{node}:{','.join(map(str, edges))}\n")
+        """Save the graph to a text file using NetworkX's built-in method."""
+        nx.write_adjlist(self.graph, filename)
 
 
 if __name__ == "__main__":
@@ -89,4 +86,4 @@ if __name__ == "__main__":
     generator.evaluate_graph_with_minimax()
 
     # Save the graph to a file
-    generator.save_graph_to_file("game_graph.txt")
+    generator.save_graph_to_file("Sixgame_graph.txt")

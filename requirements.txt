@@ -2,3 +2,4 @@ networkx
 numpy
 plotly
 matplotlib
+networkit
