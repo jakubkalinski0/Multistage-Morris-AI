@@ -19,7 +19,7 @@ class SixMensMorrisBoard(Board):
         print("0-------1-------2")
         print("|       |       |")
         print("|   3---4---5   |")
-        print("|   |       |   |") 
+        print("|   |       |   |")
         print("6---7       8---9")
         print("|   |       |   |")
         print("|   10--11--12  |")
