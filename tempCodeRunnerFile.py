@@ -1,1 +1,0 @@
-map.print_map()
