@@ -40,7 +40,29 @@ class BoardState:
         return copy.deepcopy(self)
 
     def __str__(self):
-        return NotImplemented
+        """Return a string representation of the board state."""
+        pieces_repr = {
+            Player.NONE: '.',
+            Player.WHITE: 'W',
+            Player.BLACK: 'B'
+        }
+
+        board_str = "Board:\n"
+        for i in range(self.board_size):
+            board_str += f"{i}: {pieces_repr[self.board[i]]}  "
+            if (i + 1) % 8 == 0 or i == self.board_size - 1:
+                board_str += "\n"
+
+        board_str += f"\nCurrent player: {self.current_player.name}\n"
+        board_str += f"White phase: {self.game_phase_for_player[Player.WHITE].name}\n"
+        board_str += f"Black phase: {self.game_phase_for_player[Player.BLACK].name}\n"
+        board_str += f"White pieces to place: {self.pieces_left_to_place_by_player[Player.WHITE]}\n"
+        board_str += f"Black pieces to place: {self.pieces_left_to_place_by_player[Player.BLACK]}\n"
+        board_str += f"White pieces on board: {self.pieces_from_player_currently_on_board[Player.WHITE]}\n"
+        board_str += f"Black pieces on board: {self.pieces_from_player_currently_on_board[Player.BLACK]}\n"
+        board_str += f"Need to remove piece: {self.need_to_remove_piece}\n"
+
+        return board_str
 
     def to_int(self):
         """Converts the board state to an integer representation."""
