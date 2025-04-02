@@ -52,8 +52,8 @@ class BoardState:
         result+= 3 * self.current_player.value
         for i in range(self.board_size):
             result+= self.board[i].value * (3 ** (i+2))
-        result += 3 ** (self.board_size + 2) * self.pieces_per_player
-        result += 3 ** (self.board_size + 5) * self.pieces_left_to_place_by_player[Player.WHITE]
+        result += 3 ** (self.board_size + 2) * self.pieces_left_to_place_by_player[Player.WHITE]
+        result += 3 ** (self.board_size + 5) * self.pieces_left_to_place_by_player[Player.BLACK]
         return result
     
     def from_int(self, int_representation):
@@ -68,28 +68,4 @@ class BoardState:
         self.pieces_left_to_place_by_player[Player.WHITE] = int_representation % 3**3
         int_representation //= 3**3
         self.pieces_left_to_place_by_player[Player.BLACK] = int_representation % 3**3
-
-
-        
-# board= BoardState(16, 12)
-# print(board.to_int())
-# board.board[0] = Player.WHITE
-# board.board[1] = Player.BLACK
-# board.board[2] = Player.WHITE
-# board.board[3] = Player.BLACK
-# board.board[4] = Player.WHITE
-# board.board[5] = Player.BLACK
-# board.board[15] = Player.WHITE
-# print(board.to_int())
-# board.from_int(board.to_int())
-# print(board.to_int())
-# print(board.board[0])
-# print(board.board[1])
-# print(board.board[2])
-# print(board.board[3])
-# print(board.board[4])
-# print(board.board[5])
-# print(board.board[15])
-# print(board.pieces_left_to_place_by_player[Player.WHITE])
-# print(board.pieces_left_to_place_by_player[Player.BLACK])
 
