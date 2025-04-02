@@ -8,6 +8,7 @@ from Position import Position
 class BoardState:
     def __init__(self, board_size: int, pieces_per_player: int):
         self.board_size = board_size
+        self.who_wins = 0
         self.board = [Player.NONE]*board_size
         self.pieces_per_player = pieces_per_player
         self.game_phase_for_player = {
