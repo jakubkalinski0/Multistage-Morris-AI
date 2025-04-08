@@ -1,10 +1,6 @@
 import sys
 import pygame
-from Board import Board
-from BoardState import BoardState
-from Move import Move
 from MoveType import MoveType
-from Position import Position
 from Player import Player
 from NineMensMorrisBoard import NineMensMorrisBoard
 from ThreeMensMorrisBoard import ThreeMensMorrisBoard
@@ -13,7 +9,6 @@ from TwelveMensMorrisBoard import TwelveMensMorrisBoard
 from Minimax import Minimax
 from Maps import NINE_MEN_MILLS,SIX_MEN_MILLS,THREE_MEN_MILLS,TWELVE_MEN_MILLS
 
-# --- USTAWIENIA OKNA I KOLORY ---
 SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 800
 FPS = 30
