@@ -88,6 +88,8 @@ class BoardState:
         int_representation //= 3
         for i in range(self.board_size):
             self.board[i] = Player(int_representation % 3)
+            if int_representation % 3 != 0:
+                self.pieces_from_player_currently_on_board[Player(int_representation % 3)] += 1
             int_representation //= 3
         self.pieces_left_to_place_by_player[Player.WHITE] = int_representation % 3**3
         int_representation //= 3**3
