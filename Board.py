@@ -170,9 +170,9 @@ class Board(ABC):
         return False
 
     def get_winner(self, state: BoardState) -> Player:
-        if state.pieces_from_player_currently_on_board[Player.WHITE] < 3:
+        if state.pieces_from_player_currently_on_board[Player.WHITE] < 3 and state.pieces_left_to_place_by_player[Player.WHITE] == 0:
             return Player.BLACK
-        elif state.pieces_from_player_currently_on_board[Player.BLACK] < 3:
+        elif state.pieces_from_player_currently_on_board[Player.BLACK] < 3 and state.pieces_left_to_place_by_player[Player.BLACK] == 0:
             return Player.WHITE
 
         # If current player has no legal moves, opponent wins
