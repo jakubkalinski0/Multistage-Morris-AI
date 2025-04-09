@@ -9,8 +9,8 @@ from TwelveMensMorrisBoard import TwelveMensMorrisBoard
 from Minimax import Minimax
 from Maps import NINE_MEN_MILLS,SIX_MEN_MILLS,THREE_MEN_MILLS,TWELVE_MEN_MILLS
 
-SCREEN_WIDTH = 600
-SCREEN_HEIGHT = 800
+SCREEN_WIDTH = 1536 
+SCREEN_HEIGHT = 864
 FPS = 30
 
 WHITE_COLOR = (255, 255, 255)
@@ -105,6 +105,22 @@ twelve_mens_coords = {
     23: (550, 550)   # Pozycja 23: prawy dolny róg outer square
 }
 
+def center_x_positions(coord_dict):
+    xs = [pos[0] for pos in coord_dict.values()]
+    min_x, max_x = min(xs), max(xs)
+    center_of_coords = (min_x + max_x) // 2
+    offset = (SCREEN_WIDTH // 2) - center_of_coords
+    new_dict = {}
+    for k, (x, y) in coord_dict.items():
+        new_dict[k] = (x + offset, y+50)
+    return new_dict
+
+# Wycentrowanie wszystkich plansz w poziomie:
+nine_mens_coords = center_x_positions(nine_mens_coords)
+three_mens_coords = center_x_positions(three_mens_coords)
+six_mens_coords = center_x_positions(six_mens_coords)
+twelve_mens_coords = center_x_positions(twelve_mens_coords)
+
 def get_position_coordinates(board_obj):
     if isinstance(board_obj, NineMensMorrisBoard):
         return nine_mens_coords
@@ -159,48 +175,58 @@ class GameMenu:
 
         title_font = pygame.font.SysFont(None, 48)
         title = title_font.render("Wybór trybu gry:", True, TEXT_COLOR)
-        self.screen.blit(title, (SCREEN_WIDTH//2 - title.get_width()//2, 20))
+        title_rect = title.get_rect(center=(SCREEN_WIDTH // 2, 40))  # <-- wycentrowanie w poziomie
+        self.screen.blit(title, title_rect)
 
-        y = 100
+        y = 120
         board_title = self.font.render("Wybierz planszę:", True, TEXT_COLOR)
-        self.screen.blit(board_title, (50, y))
+        board_title_rect = board_title.get_rect(center=(SCREEN_WIDTH // 2, y))
+        self.screen.blit(board_title, board_title_rect)
         y += 40
+
         for idx, text in enumerate(self.board_options):
             color = HIGHLIGHT_COLOR if idx == self.selected_board else TEXT_COLOR
             option_text = self.font.render(text, True, color)
-            rect = option_text.get_rect(topleft=(70, y))
+            rect = option_text.get_rect(center=(SCREEN_WIDTH // 2, y))  # <-- centrowanie
             self.screen.blit(option_text, rect)
             self.board_rects.append(rect)
             y += 30
 
-        y += 20
-        mode_title = self.font.render("Wybierz tryb gry:", True, TEXT_COLOR)
-        self.screen.blit(mode_title, (50, y))
         y += 40
+        mode_title = self.font.render("Wybierz tryb gry:", True, TEXT_COLOR)
+        mode_title_rect = mode_title.get_rect(center=(SCREEN_WIDTH // 2, y))
+        self.screen.blit(mode_title, mode_title_rect)
+        y += 40
+
         for idx, text in enumerate(self.mode_options):
             color = HIGHLIGHT_COLOR if idx == self.selected_mode else TEXT_COLOR
             option_text = self.font.render(text, True, color)
-            rect = option_text.get_rect(topleft=(70, y))
+            rect = option_text.get_rect(center=(SCREEN_WIDTH // 2, y))  # <-- centrowanie
             self.screen.blit(option_text, rect)
             self.mode_rects.append(rect)
             y += 30
 
         if self.selected_mode != 0:
-            y += 20
+            y += 40
             diff_title = self.font.render("Wybierz poziom trudności AI:", True, TEXT_COLOR)
-            self.screen.blit(diff_title, (50, y))
+            diff_title_rect = diff_title.get_rect(center=(SCREEN_WIDTH // 2, y))
+            self.screen.blit(diff_title, diff_title_rect)
             y += 40
             for idx, text in enumerate(self.difficulty_options):
                 color = HIGHLIGHT_COLOR if idx == self.selected_difficulty else TEXT_COLOR
                 option_text = self.font.render(text, True, color)
-                rect = option_text.get_rect(topleft=(70, y))
+                rect = option_text.get_rect(center=(SCREEN_WIDTH // 2, y))  # <-- centrowanie
                 self.screen.blit(option_text, rect)
                 self.diff_rects.append(rect)
                 y += 30
 
         start_text = self.font.render("ENTER - Rozpocznij grę", True, TEXT_COLOR)
-        self.start_rect = start_text.get_rect(center=(SCREEN_WIDTH//2, SCREEN_HEIGHT - 40))
+        self.start_rect = start_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT - 80))
         self.screen.blit(start_text, self.start_rect)
+
+        close_text = self.font.render("ZAMKNIJ", True, TEXT_COLOR)
+        self.close_rect = close_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT - 40))
+        self.screen.blit(close_text, self.close_rect)
 
         pygame.display.flip()
 
@@ -230,6 +256,9 @@ class GameMenu:
                     # Start
                     if self.start_rect.collidepoint(pos):
                         self.menu_active = False
+                    if self.close_rect.collidepoint(pos):
+                        pygame.quit()
+                        sys.exit()
 
             clock.tick(FPS)
         return self.selected_board + 1, self.selected_mode, self.selected_difficulty + 1
@@ -337,14 +366,24 @@ class GameGUI:
                 self.running = False
                 pygame.quit()
                 sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    action = show_pause_screen(self)
+                    if action == "resume":
+                        return
+                    elif action == "play_again":
+                        self.__init__(self.board_choice, self.mode_choice, self.ai_difficulty)
+                        self.run()
+                        return
+                    elif action == "menu":
+                        return "menu"
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
-                # Sprawdź, czy kliknięto w któryś z punktów planszy
                 clicked_id = None
                 for pos_id, pos in self.coords.items():
                     dx = mouse_pos[0] - pos[0]
                     dy = mouse_pos[1] - pos[1]
-                    if dx*dx + dy*dy <= 15*15:  # promień klikalny
+                    if dx*dx + dy*dy <= 15*15:
                         clicked_id = pos_id
                         break
                 if clicked_id is not None:
@@ -420,7 +459,10 @@ class GameGUI:
             if self.state.current_player == self.ai_player:
                 self.play_ai_turn()
             else:
-                self.handle_human_input()
+                result = self.handle_human_input()
+                if result == "menu":
+                    return "menu"
+
             self.draw_board()
             self.clock.tick(FPS)
 
@@ -437,6 +479,47 @@ class GameGUI:
         else:
             pygame.quit()
             sys.exit()
+
+
+def show_pause_screen(self):
+    """
+    Ekran pauzy wyświetlany po naciśnięciu ESC podczas rozgrywki,
+    daje możliwość wyjścia do menu, zagrania ponownie lub powrotu do gry.
+    """
+    font = pygame.font.SysFont(None, 48)
+    small_font = pygame.font.SysFont(None, 36)
+    running = True
+
+    while running:
+        self.screen.fill(BG_COLOR)
+
+        pause_text = font.render("Pauza", True, HIGHLIGHT_COLOR)
+        self.screen.blit(pause_text, (SCREEN_WIDTH//2 - pause_text.get_width()//2, 200))
+
+        tryagain_surface = small_font.render("ZAGRAJ PONOWNIE", True, TEXT_COLOR)
+        tryagain_rect = tryagain_surface.get_rect(center=(SCREEN_WIDTH//2, 350))
+        pygame.draw.rect(self.screen, BG_COLOR, tryagain_rect.inflate(20, 10), border_radius=10)
+        self.screen.blit(tryagain_surface, tryagain_rect)
+
+        exit_surface = small_font.render("WYJDŹ", True, TEXT_COLOR)
+        exit_rect = exit_surface.get_rect(center=(SCREEN_WIDTH//2, 420))
+        pygame.draw.rect(self.screen, BG_COLOR, exit_rect.inflate(20, 10), border_radius=10)
+        self.screen.blit(exit_surface, exit_rect)
+
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    return "resume"
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if tryagain_rect.collidepoint(event.pos):
+                    return "play_again"
+                elif exit_rect.collidepoint(event.pos):
+                    return "menu"
 
 
 def show_end_screen(self, winner):
@@ -477,7 +560,8 @@ def show_end_screen(self, winner):
 def main():
     while True:
         pygame.init()
-        screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+        info = pygame.display.Info()  # Pobiera rozdzielczość ekranu
+        screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)  # Ustawiamy rozmiar okna
         pygame.display.set_caption("Morris Game w Pygame")
         menu = GameMenu(screen)
         board_choice, mode_choice, ai_difficulty = menu.run()
