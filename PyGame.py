@@ -15,12 +15,12 @@ FPS = 30
 
 WHITE_COLOR = (255, 255, 255)
 BLACK_COLOR = (0, 0, 0)
-BG_COLOR = (30, 30, 30)
-HIGHLIGHT_COLOR = (0, 200, 0)
-TEXT_COLOR = (100, 100, 100)
+
+WHITE_TYPE=[(210, 180, 140),(16, 171, 180),(80, 32, 0)]
+BLACK_TYPE=[(30, 30, 30),(0, 200, 0),(100, 100, 100)]
+RETRO_TYPE=[(0, 0, 255),(255, 0, 0),(0, 255, 255)]
 
 # --- MAPOWANIE POZYCJI ---
-# Nine Men's Morris (już istnieje)
 nine_mens_coords = {
     0:  (50, 50),    # Pozycja 0: lewy górny róg (outer square)
     1:  (300, 50),   # Pozycja 1: górny środek
@@ -48,7 +48,7 @@ nine_mens_coords = {
     23: (550, 550)   # Pozycja 23: prawy dolny róg outer square
 }
 
-# Dodajemy brakujące mapy dla innych planszy
+
 three_mens_coords = {
     0: (150, 150), 1: (300, 150), 2: (450, 150),
     3: (150, 300), 4: (300, 300), 5: (450, 300),
@@ -148,8 +148,8 @@ class GameMenu:
         ]
         self.mode_options = [
             "0. Human vs Human",
-            "1. Human vs AI (Ty grasz jako WHITE)",
-            "2. AI vs Human (Ty grasz jako BLACK)"
+            "1. Human vs AI (You play as WHITE)",
+            "2. AI vs Human (You play as BLACK)"
         ]
         self.difficulty_options = [
             "1. Easy (1 ply)",
@@ -168,24 +168,24 @@ class GameMenu:
         self.diff_rects = []
 
     def draw_menu(self):
-        self.screen.fill(BG_COLOR)
+        self.screen.fill(BgColor)
         self.board_rects = []
         self.mode_rects = []
         self.diff_rects = []
 
         title_font = pygame.font.SysFont(None, 48)
-        title = title_font.render("Wybór trybu gry:", True, TEXT_COLOR)
+        title = title_font.render("Morris Game by Student Debil:", True, TextColor)
         title_rect = title.get_rect(center=(SCREEN_WIDTH // 2, 40))  # <-- wycentrowanie w poziomie
         self.screen.blit(title, title_rect)
 
         y = 120
-        board_title = self.font.render("Wybierz planszę:", True, TEXT_COLOR)
+        board_title = self.font.render("Select board:", True, TextColor)
         board_title_rect = board_title.get_rect(center=(SCREEN_WIDTH // 2, y))
         self.screen.blit(board_title, board_title_rect)
         y += 40
 
         for idx, text in enumerate(self.board_options):
-            color = HIGHLIGHT_COLOR if idx == self.selected_board else TEXT_COLOR
+            color = HighlightColor if idx == self.selected_board else TextColor
             option_text = self.font.render(text, True, color)
             rect = option_text.get_rect(center=(SCREEN_WIDTH // 2, y))  # <-- centrowanie
             self.screen.blit(option_text, rect)
@@ -193,13 +193,13 @@ class GameMenu:
             y += 30
 
         y += 40
-        mode_title = self.font.render("Wybierz tryb gry:", True, TEXT_COLOR)
+        mode_title = self.font.render("Select gameplay mode:", True, TextColor)
         mode_title_rect = mode_title.get_rect(center=(SCREEN_WIDTH // 2, y))
         self.screen.blit(mode_title, mode_title_rect)
         y += 40
 
         for idx, text in enumerate(self.mode_options):
-            color = HIGHLIGHT_COLOR if idx == self.selected_mode else TEXT_COLOR
+            color = HighlightColor if idx == self.selected_mode else TextColor
             option_text = self.font.render(text, True, color)
             rect = option_text.get_rect(center=(SCREEN_WIDTH // 2, y))  # <-- centrowanie
             self.screen.blit(option_text, rect)
@@ -208,23 +208,27 @@ class GameMenu:
 
         if self.selected_mode != 0:
             y += 40
-            diff_title = self.font.render("Wybierz poziom trudności AI:", True, TEXT_COLOR)
+            diff_title = self.font.render("Select AI difficulty level:", True, TextColor)
             diff_title_rect = diff_title.get_rect(center=(SCREEN_WIDTH // 2, y))
             self.screen.blit(diff_title, diff_title_rect)
             y += 40
             for idx, text in enumerate(self.difficulty_options):
-                color = HIGHLIGHT_COLOR if idx == self.selected_difficulty else TEXT_COLOR
+                color = HighlightColor if idx == self.selected_difficulty else TextColor
                 option_text = self.font.render(text, True, color)
                 rect = option_text.get_rect(center=(SCREEN_WIDTH // 2, y))  # <-- centrowanie
                 self.screen.blit(option_text, rect)
                 self.diff_rects.append(rect)
                 y += 30
 
-        start_text = self.font.render("ENTER - Rozpocznij grę", True, TEXT_COLOR)
-        self.start_rect = start_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT - 80))
+        start_text = self.font.render("START GAME", True, TextColor)
+        self.start_rect = start_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT - 120))
         self.screen.blit(start_text, self.start_rect)
 
-        close_text = self.font.render("ZAMKNIJ", True, TEXT_COLOR)
+        theme_text = self.font.render("TOGGLE THEME", True, TextColor)
+        self.theme_rect = theme_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT - 80))
+        self.screen.blit(theme_text, self.theme_rect)
+
+        close_text = self.font.render("CLOSE", True, TextColor)
         self.close_rect = close_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT - 40))
         self.screen.blit(close_text, self.close_rect)
 
@@ -256,12 +260,25 @@ class GameMenu:
                     # Start
                     if self.start_rect.collidepoint(pos):
                         self.menu_active = False
+                    # Toggle theme
+                    if self.theme_rect.collidepoint(pos):
+                        self.toggle_theme()
+                    # Close
                     if self.close_rect.collidepoint(pos):
                         pygame.quit()
                         sys.exit()
 
             clock.tick(FPS)
         return self.selected_board + 1, self.selected_mode, self.selected_difficulty + 1
+
+    def toggle_theme(self):
+        global BgColor, TextColor, HighlightColor
+        if BgColor == BLACK_TYPE[0]:
+            BgColor, HighlightColor, TextColor = WHITE_TYPE[0], WHITE_TYPE[1], WHITE_TYPE[2]
+        elif BgColor == WHITE_TYPE[0]:
+            BgColor, HighlightColor, TextColor = RETRO_TYPE[0], RETRO_TYPE[1], RETRO_TYPE[2]
+        elif BgColor == RETRO_TYPE[0]:
+            BgColor, HighlightColor, TextColor = BLACK_TYPE[0], BLACK_TYPE[1], BLACK_TYPE[2]
 
 
 
@@ -301,7 +318,7 @@ class GameGUI:
         self.running = True
 
     def draw_board(self):
-        self.screen.fill(BG_COLOR)
+        self.screen.fill(BgColor)
         
         # Sprawdzenie czy mamy współrzędne
         if not self.coords:
@@ -310,26 +327,26 @@ class GameGUI:
             self.screen.blit(error_text, (50, 50))
             pygame.display.flip()
             return
-        
+        line_thikness = 4
         # Rysowanie linii łączących punkty planszy
         # Dla Nine Men's Morris
         if isinstance(self.board, NineMensMorrisBoard):
             for start,_, end in NINE_MEN_MILLS:
-                pygame.draw.line(self.screen, TEXT_COLOR, self.coords[start], self.coords[end], 2)
+                pygame.draw.line(self.screen, TextColor, self.coords[start], self.coords[end], line_thikness)
 
         if isinstance(self.board, ThreeMensMorrisBoard):
             for start,_, end in THREE_MEN_MILLS:
-                pygame.draw.line(self.screen, TEXT_COLOR, self.coords[start], self.coords[end], 2)
+                pygame.draw.line(self.screen, TextColor, self.coords[start], self.coords[end], line_thikness)
         if isinstance(self.board, TwelveMensMorrisBoard):
             for start,_, end in TWELVE_MEN_MILLS:
-                pygame.draw.line(self.screen, TEXT_COLOR, self.coords[start], self.coords[end], 2)
+                pygame.draw.line(self.screen, TextColor, self.coords[start], self.coords[end], line_thikness)
         if isinstance(self.board, SixMensMorrisBoard):
             for start,_, end in SIX_MEN_MILLS:
-                pygame.draw.line(self.screen, TEXT_COLOR, self.coords[start], self.coords[end], 2)
-            pygame.draw.line(self.screen, TEXT_COLOR, self.coords[1], self.coords[4], 2)
-            pygame.draw.line(self.screen, TEXT_COLOR, self.coords[6], self.coords[7], 2)
-            pygame.draw.line(self.screen, TEXT_COLOR, self.coords[8], self.coords[9], 2)
-            pygame.draw.line(self.screen, TEXT_COLOR, self.coords[11], self.coords[14], 2)
+                pygame.draw.line(self.screen, TextColor, self.coords[start], self.coords[end], line_thikness)
+                pygame.draw.line(self.screen, TextColor, self.coords[1], self.coords[4], line_thikness)
+                pygame.draw.line(self.screen, TextColor, self.coords[6], self.coords[7], line_thikness)
+                pygame.draw.line(self.screen, TextColor, self.coords[8], self.coords[9], line_thikness)
+                pygame.draw.line(self.screen, TextColor, self.coords[11], self.coords[14], line_thikness)
         
         # Rysowanie punktów planszy
         for pos_id, pos in self.coords.items():
@@ -339,20 +356,22 @@ class GameGUI:
             elif player == Player.BLACK:
                 color = BLACK_COLOR
             else:
-                color = TEXT_COLOR
+                color = TextColor
             
             # Zaznaczenie wybranej pozycji
             if self.selected_pos == pos_id:
-                pygame.draw.circle(self.screen, HIGHLIGHT_COLOR, pos, 15)
-            
-            pygame.draw.circle(self.screen, color, pos, 10)
-        
+                pygame.draw.circle(self.screen, HighlightColor, pos, 23)
+            if color == TextColor:
+                pygame.draw.circle(self.screen, color, pos, 10)
+            else:
+                pygame.draw.circle(self.screen, color, pos, 16)
         # Dodanie informacji o aktualnym graczu
-        font = pygame.font.SysFont(None, 30)
+        font = pygame.font.SysFont(None, 40)
         current_player = "WHITE" if self.state.current_player == Player.WHITE else "BLACK"
-        typ = " (AI myśli)" if self.state.current_player == self.ai_player else ": Steal" if self.state.need_to_remove_piece else ""
-        player_text = font.render(f"Ruch gracza: {current_player}"+typ, True, TEXT_COLOR)
-        self.screen.blit(player_text, (10, 10))
+        typ = " (AI myśli)" if self.state.current_player == self.ai_player else ": remove" if self.state.need_to_remove_piece else ""
+        player_text = font.render(f"PLAYER  {current_player}"+typ, True, TextColor)
+        player_text_rect = player_text.get_rect(topleft=(50, SCREEN_HEIGHT - 50))
+        self.screen.blit(player_text, player_text_rect)
         
         pygame.display.flip()
 
@@ -491,19 +510,19 @@ def show_pause_screen(self):
     running = True
 
     while running:
-        self.screen.fill(BG_COLOR)
+        self.screen.fill(BgColor)
 
-        pause_text = font.render("Pauza", True, HIGHLIGHT_COLOR)
+        pause_text = font.render("Pause", True, HighlightColor)
         self.screen.blit(pause_text, (SCREEN_WIDTH//2 - pause_text.get_width()//2, 200))
 
-        tryagain_surface = small_font.render("ZAGRAJ PONOWNIE", True, TEXT_COLOR)
+        tryagain_surface = small_font.render("PLAY AGAIN", True, TextColor)
         tryagain_rect = tryagain_surface.get_rect(center=(SCREEN_WIDTH//2, 350))
-        pygame.draw.rect(self.screen, BG_COLOR, tryagain_rect.inflate(20, 10), border_radius=10)
+        pygame.draw.rect(self.screen, BgColor, tryagain_rect.inflate(20, 10), border_radius=10)
         self.screen.blit(tryagain_surface, tryagain_rect)
 
-        exit_surface = small_font.render("WYJDŹ", True, TEXT_COLOR)
+        exit_surface = small_font.render("EXIT TO MENU", True, TextColor)
         exit_rect = exit_surface.get_rect(center=(SCREEN_WIDTH//2, 420))
-        pygame.draw.rect(self.screen, BG_COLOR, exit_rect.inflate(20, 10), border_radius=10)
+        pygame.draw.rect(self.screen, BgColor, exit_rect.inflate(20, 10), border_radius=10)
         self.screen.blit(exit_surface, exit_rect)
 
         pygame.display.flip()
@@ -528,19 +547,19 @@ def show_end_screen(self, winner):
 
     running = True
     while running:
-        self.screen.fill(BG_COLOR)
+        self.screen.fill(BgColor)
 
-        win_text = f"Wygrał gracz: {'WHITE' if winner == Player.WHITE else 'BLACK'}"
-        win_surface = font.render(win_text, True, HIGHLIGHT_COLOR)
+        win_text = f"Winner: {'WHITE' if winner == Player.WHITE else 'BLACK'}"
+        win_surface = font.render(win_text, True, HighlightColor)
         self.screen.blit(win_surface, (SCREEN_WIDTH//2 - win_surface.get_width()//2, 200))
-        tryagain_surface = small_font.render("ZAGRAJ PONOWNIE", True, TEXT_COLOR)
+        tryagain_surface = small_font.render("PLAY AGAIN", True, TextColor)
         tryagain_rect = tryagain_surface.get_rect(center=(SCREEN_WIDTH//2, 350))
-        pygame.draw.rect(self.screen, BG_COLOR, tryagain_rect.inflate(20, 10), border_radius=10)
+        pygame.draw.rect(self.screen, BgColor, tryagain_rect.inflate(20, 10), border_radius=10)
         self.screen.blit(tryagain_surface, tryagain_rect)
 
-        exit_surface = small_font.render("WYJDŹ", True, TEXT_COLOR)
+        exit_surface = small_font.render("EXIT TO MENU", True, TextColor)
         exit_rect = exit_surface.get_rect(center=(SCREEN_WIDTH//2, 420))
-        pygame.draw.rect(self.screen, BG_COLOR, exit_rect.inflate(20, 10), border_radius=10)
+        pygame.draw.rect(self.screen, BgColor, exit_rect.inflate(20, 10), border_radius=10)
         self.screen.blit(exit_surface, exit_rect)
 
         pygame.display.flip()
@@ -558,11 +577,13 @@ def show_end_screen(self, winner):
 
 # --- FUNKCJA GŁÓWNA ---
 def main():
+    global BgColor, TextColor, HighlightColor
+    BgColor,HighlightColor, TextColor = BLACK_TYPE[0], BLACK_TYPE[1], BLACK_TYPE[2]
     while True:
         pygame.init()
         info = pygame.display.Info()  # Pobiera rozdzielczość ekranu
         screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)  # Ustawiamy rozmiar okna
-        pygame.display.set_caption("Morris Game w Pygame")
+        pygame.display.set_caption("Morris Game in Pygame")
         menu = GameMenu(screen)
         board_choice, mode_choice, ai_difficulty = menu.run()
         game_gui = GameGUI(board_choice, mode_choice, ai_difficulty)
