@@ -143,9 +143,9 @@ class MorrisHeuristics:
         if self.board.check_if_game_is_over(state):
             winner = self.board.get_winner(state)
             if winner == player:
-                return 100000  # Win
+                return 1  # Win
             elif winner == player.opponent():
-                return -100000  # Loss
+                return -1  # Loss
             return 0  # Draw
 
         # Determine the current game phase for evaluation

@@ -103,9 +103,9 @@ class Minimax:
         if self.board.check_if_game_is_over(state):
             winner = self.board.get_winner(state)
             if winner == player:
-                return 10000  # Win
+                return 1000  # Win
             elif winner == player.opponent():
-                return -10000  # Loss
+                return -1000  # Loss
             else:
                 return 0  # Draw
 
