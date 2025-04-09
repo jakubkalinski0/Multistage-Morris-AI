@@ -124,20 +124,17 @@ class GameMenu:
         self.font = pygame.font.SysFont(None, 36)
         self.menu_active = True
 
-        # Opcje wyboru planszy (indeksy odpowiadają Twojemu wybierakowi)
         self.board_options = [
             "1. Three Men's Morris",
             "2. Six Men's Morris",
             "3. Nine Men's Morris",
             "4. Twelve Men's Morris"
         ]
-        # Opcje trybu gry
         self.mode_options = [
             "0. Human vs Human",
             "1. Human vs AI (Ty grasz jako WHITE)",
             "2. AI vs Human (Ty grasz jako BLACK)"
         ]
-        # Opcje poziomu trudności (jeśli dotyczy AI)
         self.difficulty_options = [
             "1. Easy (1 ply)",
             "2. Medium (2 ply)",
@@ -145,18 +142,25 @@ class GameMenu:
             "4. Expert (4 ply)"
         ]
 
-        # Domyślne wybory – użytkownik będzie mógł je zmieniać klikając myszką lub klawiaturą
-        self.selected_board = 2  # domyślnie Nine Men's Morris (indeks 2)
-        self.selected_mode = 0   # domyślnie Human vs Human
-        self.selected_difficulty = 2  # domyślnie Medium
+        self.selected_board = 2
+        self.selected_mode = 0
+        self.selected_difficulty = 2
+
+        # Przechowuje klikowalne recty
+        self.board_rects = []
+        self.mode_rects = []
+        self.diff_rects = []
 
     def draw_menu(self):
         self.screen.fill(BG_COLOR)
+        self.board_rects = []
+        self.mode_rects = []
+        self.diff_rects = []
+
         title_font = pygame.font.SysFont(None, 48)
         title = title_font.render("Wybór trybu gry:", True, TEXT_COLOR)
         self.screen.blit(title, (SCREEN_WIDTH//2 - title.get_width()//2, 20))
 
-        # Rysowanie opcji planszy
         y = 100
         board_title = self.font.render("Wybierz planszę:", True, TEXT_COLOR)
         self.screen.blit(board_title, (50, y))
@@ -164,10 +168,11 @@ class GameMenu:
         for idx, text in enumerate(self.board_options):
             color = HIGHLIGHT_COLOR if idx == self.selected_board else TEXT_COLOR
             option_text = self.font.render(text, True, color)
-            self.screen.blit(option_text, (70, y))
+            rect = option_text.get_rect(topleft=(70, y))
+            self.screen.blit(option_text, rect)
+            self.board_rects.append(rect)
             y += 30
 
-        # Tryb gry
         y += 20
         mode_title = self.font.render("Wybierz tryb gry:", True, TEXT_COLOR)
         self.screen.blit(mode_title, (50, y))
@@ -175,11 +180,12 @@ class GameMenu:
         for idx, text in enumerate(self.mode_options):
             color = HIGHLIGHT_COLOR if idx == self.selected_mode else TEXT_COLOR
             option_text = self.font.render(text, True, color)
-            self.screen.blit(option_text, (70, y))
+            rect = option_text.get_rect(topleft=(70, y))
+            self.screen.blit(option_text, rect)
+            self.mode_rects.append(rect)
             y += 30
 
-        # Poziom trudności (tylko gdy tryb zawiera AI)
-        if self.selected_mode != 0:  
+        if self.selected_mode != 0:
             y += 20
             diff_title = self.font.render("Wybierz poziom trudności AI:", True, TEXT_COLOR)
             self.screen.blit(diff_title, (50, y))
@@ -187,12 +193,15 @@ class GameMenu:
             for idx, text in enumerate(self.difficulty_options):
                 color = HIGHLIGHT_COLOR if idx == self.selected_difficulty else TEXT_COLOR
                 option_text = self.font.render(text, True, color)
-                self.screen.blit(option_text, (70, y))
+                rect = option_text.get_rect(topleft=(70, y))
+                self.screen.blit(option_text, rect)
+                self.diff_rects.append(rect)
                 y += 30
 
-        # Przycisk "Start"
         start_text = self.font.render("ENTER - Rozpocznij grę", True, TEXT_COLOR)
-        self.screen.blit(start_text, (SCREEN_WIDTH//2 - start_text.get_width()//2, SCREEN_HEIGHT - 60))
+        self.start_rect = start_text.get_rect(center=(SCREEN_WIDTH//2, SCREEN_HEIGHT - 40))
+        self.screen.blit(start_text, self.start_rect)
+
         pygame.display.flip()
 
     def run(self):
@@ -203,29 +212,36 @@ class GameMenu:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                elif event.type == pygame.KEYDOWN:
-                    # Zmiana wyborów klawiszami strzałek
-                    if event.key == pygame.K_UP:
-                        self.selected_board = (self.selected_board - 1) % len(self.board_options)
-                    elif event.key == pygame.K_DOWN:
-                        self.selected_board = (self.selected_board + 1) % len(self.board_options)
-                    elif event.key == pygame.K_LEFT:
-                        self.selected_mode = (self.selected_mode - 1) % len(self.mode_options)
-                    elif event.key == pygame.K_RIGHT:
-                        self.selected_mode = (self.selected_mode + 1) % len(self.mode_options)
-                    elif event.key == pygame.K_w and self.selected_mode != 0:  # zwiększ poziom trudności
-                        self.selected_difficulty = (self.selected_difficulty - 1) % len(self.difficulty_options)
-                    elif event.key == pygame.K_s and self.selected_mode != 0:
-                        self.selected_difficulty = (self.selected_difficulty + 1) % len(self.difficulty_options)
-                    elif event.key == pygame.K_RETURN:
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    pos = event.pos
+                    # Plansze
+                    for idx, rect in enumerate(self.board_rects):
+                        if rect.collidepoint(pos):
+                            self.selected_board = idx
+                    # Tryby gry
+                    for idx, rect in enumerate(self.mode_rects):
+                        if rect.collidepoint(pos):
+                            self.selected_mode = idx
+                    # Poziom trudności
+                    if self.selected_mode != 0:
+                        for idx, rect in enumerate(self.diff_rects):
+                            if rect.collidepoint(pos):
+                                self.selected_difficulty = idx
+                    # Start
+                    if self.start_rect.collidepoint(pos):
                         self.menu_active = False
+
             clock.tick(FPS)
         return self.selected_board + 1, self.selected_mode, self.selected_difficulty + 1
 
-# --- KLASA GAMEGUI – integracja logiki gry z Pygame ---
-# W tej klasie dziedziczymy po Game i zastępujemy metody wejścia, aby korzystały z wartości przekazanych przez menu.
+
+
 class GameGUI:
     def __init__(self, board_choice, ai_mode, ai_difficulty):
+        self.board_choice = board_choice
+        self.mode_choice = ai_mode
+        self.ai_difficulty = ai_difficulty
+
         # Ustal planszę na podstawie wyboru użytkownika:
         standard_boards = {
             1: ThreeMensMorrisBoard,
@@ -395,45 +411,87 @@ class GameGUI:
 
     def run(self):
         while self.running:
-            # Jeśli gra nie zakończona – tury dla obu graczy
             if self.board.check_if_game_is_over(self.state):
                 winner = self.board.get_winner(self.state)
-                print("Koniec gry!")
-                if winner == Player.NONE:
-                    print("Remis!")
-                else:
-                    print(f"Wygrał gracz {winner.name}")
+                # Zakończenie pętli i przejście do obsługi ekranu końcowego
                 self.running = False
-                continue
+                break
 
-            current_player = self.state.current_player
-
-            # Dla rozgrywki z AI:
-            if current_player == self.ai_player:
+            if self.state.current_player == self.ai_player:
                 self.play_ai_turn()
             else:
                 self.handle_human_input()
-
             self.draw_board()
             self.clock.tick(FPS)
 
-        # Na zakończenie pętli – poczekaj chwilę i zamknij okno
-        pygame.time.wait(2000)
-        pygame.quit()
+        winner = self.board.get_winner(self.state)
+        action = show_end_screen(self, winner)
+
+        if action == "play_again":
+            self.__init__(self.board_choice, self.mode_choice, self.ai_difficulty)
+            self.run()
+            return
+        elif action == "menu":
+            # Przerywamy, by w main() wrócić do menu
+            return "menu"
+        else:
+            pygame.quit()
+            sys.exit()
+
+
+def show_end_screen(self, winner):
+    font = pygame.font.SysFont(None, 48)
+    small_font = pygame.font.SysFont(None, 36)
+
+    running = True
+    while running:
+        self.screen.fill(BG_COLOR)
+
+        win_text = f"Wygrał gracz: {'WHITE' if winner == Player.WHITE else 'BLACK'}"
+        win_surface = font.render(win_text, True, HIGHLIGHT_COLOR)
+        self.screen.blit(win_surface, (SCREEN_WIDTH//2 - win_surface.get_width()//2, 200))
+        tryagain_surface = small_font.render("ZAGRAJ PONOWNIE", True, TEXT_COLOR)
+        tryagain_rect = tryagain_surface.get_rect(center=(SCREEN_WIDTH//2, 350))
+        pygame.draw.rect(self.screen, BG_COLOR, tryagain_rect.inflate(20, 10), border_radius=10)
+        self.screen.blit(tryagain_surface, tryagain_rect)
+
+        exit_surface = small_font.render("WYJDŹ", True, TEXT_COLOR)
+        exit_rect = exit_surface.get_rect(center=(SCREEN_WIDTH//2, 420))
+        pygame.draw.rect(self.screen, BG_COLOR, exit_rect.inflate(20, 10), border_radius=10)
+        self.screen.blit(exit_surface, exit_rect)
+
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if tryagain_rect.collidepoint(event.pos):
+                    return "play_again"
+                elif exit_rect.collidepoint(event.pos):
+                    return "menu"
 
 
 # --- FUNKCJA GŁÓWNA ---
 def main():
-    pygame.init()
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    pygame.display.set_caption("Morris Game w Pygame")
-    
-    # Uruchom menu wyboru trybu gry
-    menu = GameMenu(screen)
-    board_choice, mode_choice, ai_difficulty = menu.run()
-    # Stwórz instancję gry z interfejsem graficznym
-    game_gui = GameGUI(board_choice, mode_choice, ai_difficulty)
-    game_gui.run()
+    while True:
+        pygame.init()
+        screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+        pygame.display.set_caption("Morris Game w Pygame")
+        menu = GameMenu(screen)
+        board_choice, mode_choice, ai_difficulty = menu.run()
+        game_gui = GameGUI(board_choice, mode_choice, ai_difficulty)
+
+        result = game_gui.run()
+        # Jeśli "menu", wywołujemy pętlę jeszcze raz (wracamy do głównego menu)
+        if result == "menu":
+            continue
+        else:
+            break
+
+    pygame.quit()
+    sys.exit()
 
 
 if __name__ == "__main__":
