@@ -16,9 +16,11 @@ FPS = 30
 WHITE_COLOR = (255, 255, 255)
 BLACK_COLOR = (0, 0, 0)
 
-WHITE_TYPE=[(210, 180, 140),(16, 171, 180),(80, 32, 0)]
+WHITE_TYPE=[(210, 180, 140),(18, 159, 184),(173, 88, 2)]
 BLACK_TYPE=[(30, 30, 30),(0, 200, 0),(100, 100, 100)]
 RETRO_TYPE=[(0, 0, 255),(255, 0, 0),(0, 255, 255)]
+
+FONT_PATH = "font.ttf"
 
 # --- MAPOWANIE POZYCJI ---
 nine_mens_coords = {
@@ -137,7 +139,7 @@ def get_position_coordinates(board_obj):
 class GameMenu:
     def __init__(self, screen):
         self.screen = screen
-        self.font = pygame.font.SysFont(None, 36)
+        self.font = pygame.font.Font(FONT_PATH, 36)
         self.menu_active = True
 
         self.board_options = [
@@ -173,7 +175,7 @@ class GameMenu:
         self.mode_rects = []
         self.diff_rects = []
 
-        title_font = pygame.font.SysFont(None, 48)
+        title_font = pygame.font.Font(FONT_PATH, 48)
         title = title_font.render("Morris Game by Student Debil:", True, TextColor)
         title_rect = title.get_rect(center=(SCREEN_WIDTH // 2, 40))  # <-- wycentrowanie w poziomie
         self.screen.blit(title, title_rect)
@@ -190,7 +192,7 @@ class GameMenu:
             rect = option_text.get_rect(center=(SCREEN_WIDTH // 2, y))  # <-- centrowanie
             self.screen.blit(option_text, rect)
             self.board_rects.append(rect)
-            y += 30
+            y += 32
 
         y += 40
         mode_title = self.font.render("Select gameplay mode:", True, TextColor)
@@ -204,7 +206,7 @@ class GameMenu:
             rect = option_text.get_rect(center=(SCREEN_WIDTH // 2, y))  # <-- centrowanie
             self.screen.blit(option_text, rect)
             self.mode_rects.append(rect)
-            y += 30
+            y += 32
 
         if self.selected_mode != 0:
             y += 40
@@ -218,7 +220,7 @@ class GameMenu:
                 rect = option_text.get_rect(center=(SCREEN_WIDTH // 2, y))  # <-- centrowanie
                 self.screen.blit(option_text, rect)
                 self.diff_rects.append(rect)
-                y += 30
+                y += 32
 
         start_text = self.font.render("START GAME", True, TextColor)
         self.start_rect = start_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT - 120))
@@ -322,7 +324,7 @@ class GameGUI:
         
         # Sprawdzenie czy mamy współrzędne
         if not self.coords:
-            font = pygame.font.SysFont(None, 36)
+            font = pygame.font.Font(FONT_PATH, 36)
             error_text = font.render("BŁĄD: Brak współrzędnych dla tej planszy!", True, (255, 0, 0))
             self.screen.blit(error_text, (50, 50))
             pygame.display.flip()
@@ -366,9 +368,9 @@ class GameGUI:
             else:
                 pygame.draw.circle(self.screen, color, pos, 16)
         # Dodanie informacji o aktualnym graczu
-        font = pygame.font.SysFont(None, 40)
+        font = pygame.font.Font(FONT_PATH, 40)
         current_player = "WHITE" if self.state.current_player == Player.WHITE else "BLACK"
-        typ = " (AI myśli)" if self.state.current_player == self.ai_player else ": remove" if self.state.need_to_remove_piece else ""
+        typ = " (AI Thinks)" if self.state.current_player == self.ai_player else ": remove" if self.state.need_to_remove_piece else ""
         player_text = font.render(f"PLAYER  {current_player}"+typ, True, TextColor)
         player_text_rect = player_text.get_rect(topleft=(50, SCREEN_HEIGHT - 50))
         self.screen.blit(player_text, player_text_rect)
@@ -505,8 +507,8 @@ def show_pause_screen(self):
     Ekran pauzy wyświetlany po naciśnięciu ESC podczas rozgrywki,
     daje możliwość wyjścia do menu, zagrania ponownie lub powrotu do gry.
     """
-    font = pygame.font.SysFont(None, 48)
-    small_font = pygame.font.SysFont(None, 36)
+    font = pygame.font.Font(FONT_PATH, 48)
+    small_font = pygame.font.Font(FONT_PATH, 36)
     running = True
 
     while running:
@@ -542,8 +544,8 @@ def show_pause_screen(self):
 
 
 def show_end_screen(self, winner):
-    font = pygame.font.SysFont(None, 48)
-    small_font = pygame.font.SysFont(None, 36)
+    font = pygame.font.Font(FONT_PATH, 48)
+    small_font = pygame.font.Font(FONT_PATH, 36)
 
     running = True
     while running:
