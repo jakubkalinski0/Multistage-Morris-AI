@@ -4,7 +4,6 @@ from BoardState import BoardState
 from Player import Player
 from GamePhase import GamePhase
 
-
 class MorrisHeuristics:
     """Heuristic for evaluating Morris game states."""
 
@@ -37,7 +36,7 @@ class MorrisHeuristics:
         # 2. Formed mills
         player_mills = self._count_mills(state, player)
         opponent_mills = self._count_mills(state, opponent)
-        score += (player_mills - opponent_mills) * 20
+        score += (player_mills - opponent_mills) * 50
 
         # 3. Potential mills (two pieces in a line with the third position empty)
         player_potential = self._count_potential_mills(state, player)

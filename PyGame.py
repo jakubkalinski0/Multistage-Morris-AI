@@ -8,6 +8,7 @@ from SixMensMorrisBoard import SixMensMorrisBoard
 from TwelveMensMorrisBoard import TwelveMensMorrisBoard
 from Minimax import Minimax
 from Maps import NINE_MEN_MILLS,SIX_MEN_MILLS,THREE_MEN_MILLS,TWELVE_MEN_MILLS
+from MonteCarlo import MonteCarloTreeSearch  # Import klasy Monte Carlo
 
 SCREEN_WIDTH = 1536 
 SCREEN_HEIGHT = 864
@@ -157,7 +158,9 @@ class GameMenu:
             "1. Easy (1 ply)",
             "2. Medium (2 ply)",
             "3. Hard (3 ply)",
-            "4. Expert (4 ply)"
+            "4. Expert (4 ply)",
+            "5. Monte Carlo (0.1s)",
+            "6. Monte Carlo (1s)"
         ]
 
         self.selected_board = 2
@@ -271,7 +274,7 @@ class GameMenu:
                         sys.exit()
 
             clock.tick(FPS)
-        return self.selected_board + 1, self.selected_mode, self.selected_difficulty + 1
+        return self.selected_board + 1, self.selected_mode, self.selected_difficulty
 
     def toggle_theme(self):
         global BgColor, TextColor, HighlightColor
@@ -290,6 +293,7 @@ class GameGUI:
         self.mode_choice = ai_mode
         self.ai_difficulty = ai_difficulty
 
+
         # Ustal planszę na podstawie wyboru użytkownika:
         standard_boards = {
             1: ThreeMensMorrisBoard,
@@ -299,6 +303,7 @@ class GameGUI:
         }
         self.board = standard_boards.get(board_choice, NineMensMorrisBoard)()
         self.state = self.board.get_initial_board_state()
+
         # Ustawienie graczy – zgodnie z wybranym trybem:
         self.players = [Player.WHITE, Player.BLACK]
         if ai_mode == 0:
@@ -308,14 +313,22 @@ class GameGUI:
         else:
             self.ai_player = Player.WHITE  # AI jako WHITE
 
-        self.ai_difficulty = ai_difficulty if self.ai_player != Player.NONE else 0
+        # Obsługa różnych modeli AI
         if self.ai_player != Player.NONE:
-            self.ai = Minimax(self.board, self.ai_difficulty)
-        # Pygame
+            if ai_difficulty in [0, 1, 2, 3]:  # Minimax
+                self.ai = Minimax(self.board, ai_difficulty + 1)
+            elif ai_difficulty == 4:  # Monte Carlo (0.1s)
+                self.ai = MonteCarloTreeSearch(self.board)
+                self.ai_time_limit = 0.1
+            elif ai_difficulty == 5:  # Monte Carlo (1s)
+                self.ai = MonteCarloTreeSearch(self.board)
+                self.ai_time_limit = 1.0
+        else:
+            self.ai_time_limit = 0
+
         self.screen = pygame.display.get_surface()
         self.clock = pygame.time.Clock()
         self.coords = get_position_coordinates(self.board)
-        # Przechowujemy zaznaczenia użytkownika (przy ruchach MOVE trzeba wybrać dwa pola)
         self.selected_pos = None
         self.running = True
 
@@ -371,7 +384,7 @@ class GameGUI:
         font = pygame.font.Font(FONT_PATH, 40)
         current_player = "WHITE" if self.state.current_player == Player.WHITE else "BLACK"
         typ = " (AI Thinks)" if self.state.current_player == self.ai_player else ": remove" if self.state.need_to_remove_piece else ""
-        player_text = font.render(f"PLAYER  {current_player}"+typ, True, TextColor)
+        player_text = font.render(f"PLAYER  {current_player}"+typ+" Board:" + str(self.board.board_state.to_int()), True, TextColor)
         player_text_rect = player_text.get_rect(topleft=(50, SCREEN_HEIGHT - 50))
         self.screen.blit(player_text, player_text_rect)
         
@@ -460,10 +473,11 @@ class GameGUI:
             self.selected_pos = None
 
     def play_ai_turn(self):
-        # Ruch AI – można pokazać komunikat lub animację
-        # Obliczamy limit czasu na podstawie poziomu trudności
-        time_limit = min(1.0 + self.ai_difficulty, 5.0)
-        ai_move = self.ai.get_best_move(self.state, time_limit)
+        if isinstance(self.ai, MonteCarloTreeSearch):
+            ai_move = self.ai.get_best_move(self.state, self.ai_time_limit)
+        else:
+            ai_move = self.ai.get_best_move(self.state, self.ai_difficulty)
+
         if ai_move is None:
             self.running = False
             return

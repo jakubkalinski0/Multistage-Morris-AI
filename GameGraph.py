@@ -41,18 +41,14 @@ class GameGraphGenerator:
 
 
 if __name__ == "__main__":
-    # Initialize the board and generator
-    board = ThreeMensMorrisBoard()
+
+    #board = ThreeMensMorrisBoard()
+    board = SixMensMorrisBoard()
     generator = GameGraphGenerator(board)
 
-    # Generate the graph
     initial_state = board.get_initial_board_state()
     generator.generate_graph(initial_state, initial_state.to_int())
-
-    # Evaluate the graph using Minimax
-    #generator.evaluate_graph_with_minimax()
-
     # Save the graph to a file
-    generator.save_graph_to_file("Threegame_graph.txt")
+    generator.save_graph_to_file("Sixgame_graph.txt")
     print("Game graph generated and saved to Threegame_graph.txt")
 

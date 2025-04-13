@@ -59,15 +59,15 @@ class Minimax:
         # Check termination conditions
         if time.time() - self.start_time > max_time_seconds:
             # Time limit reached
-            return self.evaluate_state(state, original_player)
+            return self.evaluate_state(state, original_player,depth)
 
         if depth >= self.max_depth or self.board.check_if_game_is_over(state):
-            return self.evaluate_state(state, original_player)
+            return self.evaluate_state(state, original_player,depth)
 
         legal_moves = self.board.get_legal_moves(state)
         if not legal_moves:
             # No legal moves available, evaluate current state
-            return self.evaluate_state(state, original_player)
+            return self.evaluate_state(state, original_player,depth)
 
         if is_maximizing:
             value = float('-inf')
@@ -78,8 +78,8 @@ class Minimax:
                 value = max(value, self.minimax(new_state, depth + 1, alpha, beta, next_is_maximizing, original_player,
                                                 max_time_seconds))
                 alpha = max(alpha, value)
-                if alpha >= beta:
-                    break  # Beta cut-off
+                # if alpha >= beta:
+                #     break  # Beta cut-off
             return value
         else:
             value = float('inf')
@@ -90,11 +90,11 @@ class Minimax:
                 value = min(value, self.minimax(new_state, depth + 1, alpha, beta, next_is_maximizing, original_player,
                                                 max_time_seconds))
                 beta = min(beta, value)
-                if beta <= alpha:
-                    break  # Alpha cut-off
+                # if beta <= alpha:
+                #     break  # Alpha cut-off
             return value
 
-    def evaluate_state(self, state: BoardState, player: Player) -> float:
+    def evaluate_state(self, state: BoardState, player: Player, deph:int) -> float:
         """
         Evaluate the board state from the perspective of the given player.
         Returns a higher value for better positions for the player.
@@ -103,9 +103,9 @@ class Minimax:
         if self.board.check_if_game_is_over(state):
             winner = self.board.get_winner(state)
             if winner == player:
-                return 1000  # Win
+                return 1000 + (self.max_depth-deph)*100  # Win
             elif winner == player.opponent():
-                return -1000  # Loss
+                return -1000 - (self.max_depth-deph)*100  # Loss
             else:
                 return 0  # Draw
 
