@@ -2,3 +2,9 @@ transfer uczenia z mikrogier
 Projekt skupia się na opracowaniu rozwiązania do gry Nine men's morris w różnych wariantach wielkości planszy – która składają się z kilku odmiennych faz: ustawiania pionków, ich przesuwania oraz latanie (swobodnego przemieszczania pionków). Każda z tych faz wymaga innego podejścia do analizy sytuacji na planszy oraz wyboru optymalnych ruchów, co stanowi wyzwanie przy opracowywaniu strategii.
 W implementacji wykorzystano dwa podejścia do rozgrywki: algorytm Minimax z przycinaniem alfa-beta oraz Monte Carlo Tree Search. Oba algorytmy zostały uzupełnione o zestaw heurystyk dostosowanych do poszczególnych etapów gry.
 Stan gry w każdej chwili reprezentowany jest jako wierzchołek w grafie, co umożliwia odwzorowanie i analizę pełnej przestrzeni możliwych przebiegów rozgrywki. Na podstawie tego grafu trenowany jest model a następnie sprawdzana jest jego skuteczność na większej planszy.
+
+
+Transfer Learning from Microgames
+The project focuses on developing a solution for the game Nine Men's Morris in various board sizes. The game consists of several distinct phases: the placing phase, the moving phase, and the flying phase (free movement of pieces). Each of these stages requires a different approach to board state evaluation and optimal move selection, presenting a challenge for strategy development.
+The implementation incorporates two approaches to gameplay: the Minimax algorithm with alpha-beta pruning and Monte Carlo Tree Search (MCTS). Both algorithms are augmented with a set of heuristics tailored to the specific demands of each phase of the game.
+At any point in the game, the state is represented as a node in a graph, which allows for modeling and analysis of the complete space of possible game trajectories. Based on this game tree representation, a model is trained and then evaluated for its performance on a larger board configuration.
