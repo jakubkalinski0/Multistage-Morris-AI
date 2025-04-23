@@ -47,5 +47,5 @@ if __name__ == "__main__":
     generator.generate_graph(initial_state, initial_state.to_int())
     # Save the graph to a file
     generator.save_graph_to_file("Sixgame_graph.txt")
-    print("Game graph generated and saved to Threegame_graph.txt")
+    print("Game graph generated and saved to Sixgame_graph.txt")
 
