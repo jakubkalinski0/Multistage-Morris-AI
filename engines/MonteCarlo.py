@@ -1,11 +1,11 @@
 import time
 import random
 from typing import Optional
-from Board import Board
-from BoardState import BoardState
-from Player import Player
-from Move import Move
-from MorrisHeuristic import MorrisHeuristics
+from game.board.Board import Board
+from game.board.BoardState import BoardState
+from game.util.Player import Player
+from game.util.Move import Move
+from heuristic.MorrisHeuristic import MorrisHeuristics
 
 
 class MonteCarloTreeSearch:

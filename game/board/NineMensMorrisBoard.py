@@ -1,6 +1,6 @@
-from Board import Board
+from game.board.Board import Board
 
-from Maps import NINE_MEN_GRAPH,NINE_MEN_MILLS
+from game.board.Maps import NINE_MEN_GRAPH,NINE_MEN_MILLS
 
 
 

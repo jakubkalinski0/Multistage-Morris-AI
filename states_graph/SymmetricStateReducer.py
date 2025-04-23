@@ -1,8 +1,3 @@
-import numpy as np
-from BoardState import BoardState
-from Player import Player
-
-
 class SymmetricStateReducer:
     """
     Utility class to reduce the state space of Morris games by identifying symmetric positions.

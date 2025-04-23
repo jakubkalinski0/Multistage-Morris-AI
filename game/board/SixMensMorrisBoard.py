@@ -1,9 +1,9 @@
-from Board import Board
+from game.board.Board import Board
 import plotly.io as pio
 import networkx as nx
 import matplotlib.pyplot as plt
 
-from Maps import SIX_MEN_GRAPH,SIX_MEN_MILLS
+from game.board.Maps import SIX_MEN_GRAPH,SIX_MEN_MILLS
 
 class SixMensMorrisBoard(Board):  
     BOARD_SIZE = len(SIX_MEN_GRAPH)

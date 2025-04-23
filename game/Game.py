@@ -1,14 +1,11 @@
-from Board import Board
-from BoardState import BoardState
-from Move import Move
-from MoveType import MoveType
-from Position import Position
-from Player import Player
-from NineMensMorrisBoard import NineMensMorrisBoard
-from ThreeMensMorrisBoard import ThreeMensMorrisBoard
-from SixMensMorrisBoard import SixMensMorrisBoard
-from TwelveMensMorrisBoard import TwelveMensMorrisBoard
-from Minimax import Minimax
+from game.util.Move import Move
+from game.util.MoveType import MoveType
+from game.util.Player import Player
+from game.board.NineMensMorrisBoard import NineMensMorrisBoard
+from game.board.ThreeMensMorrisBoard import ThreeMensMorrisBoard
+from game.board.SixMensMorrisBoard import SixMensMorrisBoard
+from game.board.TwelveMensMorrisBoard import TwelveMensMorrisBoard
+from engines.Minimax import Minimax
 
 
 class Game:
@@ -195,25 +192,25 @@ class Game:
         elif player == Player.BLACK:
             return "B"
         else:
-            return "·"  # Empty position
+            return "#"  # Empty position
 
     def _print_nine_mens_board_with_pieces(self):
         symbols = [self._get_piece_symbol(i) for i in range(24)]
 
         print("\nBoard with pieces:")
-        print(f"{symbols[0]}----------{symbols[1]}---------{symbols[2]}")
-        print("|          |         |")
+        print(f"{symbols[0]}----------{symbols[1]}----------{symbols[2]}")
+        print("|          |          |")
         print(f"|    {symbols[3]}-----{symbols[4]}-----{symbols[5]}    |")
-        print("|    |     |     |   |")
-        print(f"|    |  {symbols[6]}--{symbols[7]}--{symbols[8]}  |   |")
-        print("|    |  |     |  |   |")
-        print(f"{symbols[9]}---{symbols[10]}-{symbols[11]}     {symbols[12]}-{symbols[13]}--{symbols[14]}")
-        print("|    |  |     |  |   |")
-        print(f"|    |  {symbols[15]}-{symbols[16]}-{symbols[17]}  |   |")
-        print("|    |     |     |   |")
-        print(f"|    {symbols[18]}----{symbols[19]}----{symbols[20]}   |")
-        print("|          |         |")
-        print(f"{symbols[21]}----------{symbols[22]}---------{symbols[23]}")
+        print("|    |     |     |    |")
+        print(f"|    |  {symbols[6]}--{symbols[7]}--{symbols[8]}  |    |")
+        print("|    |  |     |  |    |")
+        print(f"{symbols[9]}----{symbols[10]}--{symbols[11]}     {symbols[12]}--{symbols[13]}----{symbols[14]}")
+        print("|    |  |     |  |    |")
+        print(f"|    |  {symbols[15]}--{symbols[16]}--{symbols[17]}  |    |")
+        print("|    |     |     |    |")
+        print(f"|    {symbols[18]}-----{symbols[19]}-----{symbols[20]}    |")
+        print("|          |          |")
+        print(f"{symbols[21]}----------{symbols[22]}----------{symbols[23]}")
         print("Legend: W = White, B = Black, · = Empty")
 
     def _print_three_mens_board_with_pieces(self):
@@ -237,9 +234,9 @@ class Game:
         print("|   |       |   |")
         print(f"{symbols[6]}---{symbols[7]}       {symbols[8]}---{symbols[9]}")
         print("|   |       |   |")
-        print(f"|   {symbols[10]}-{symbols[11]}-{symbols[12]}  |")
+        print(f"|   {symbols[10]}---{symbols[11]}---{symbols[12]}   |")
         print("|       |       |")
-        print(f"{symbols[13]}------{symbols[14]}------{symbols[15]}")
+        print(f"{symbols[13]}-------{symbols[14]}-------{symbols[15]}")
         print("Legend: W = White, B = Black, · = Empty")
 
     def _print_twelve_mens_board_with_pieces(self):
@@ -252,13 +249,13 @@ class Game:
         print("|   | \\   |   / |   |")
         print(f"|   |  {symbols[6]}--{symbols[7]}--{symbols[8]}  |   |")
         print("|   |  |     |  |   |")
-        print(f"{symbols[9]}--{symbols[10]}-{symbols[11]}     {symbols[12]}-{symbols[13]}-{symbols[14]}")
+        print(f"{symbols[9]}---{symbols[10]}--{symbols[11]}     {symbols[12]}--{symbols[13]}---{symbols[14]}")
         print("|   |  |     |  |   |")
-        print(f"|   |  {symbols[15]}-{symbols[16]}-{symbols[17]} |   |")
+        print(f"|   |  {symbols[15]}--{symbols[16]}--{symbols[17]}  |   |")
         print("|   | /   |   \\ |   |")
-        print(f"|   {symbols[18]}----{symbols[19]}----{symbols[20]}  |")
+        print(f"|   {symbols[18]}-----{symbols[19]}-----{symbols[20]}   |")
         print("| /       |       \\ |")
-        print(f"{symbols[21]}--------{symbols[22]}--------{symbols[23]}")
+        print(f"{symbols[21]}---------{symbols[22]}---------{symbols[23]}")
         print("Legend: W = White, B = Black, · = Empty")
 
 

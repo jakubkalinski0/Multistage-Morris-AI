@@ -1,7 +1,7 @@
 from typing import Optional
 
-from MoveType import MoveType
-from Position import Position
+from game.util.MoveType import MoveType
+from game.util.Position import Position
 
 class Move:
     """Representation of movement in the game."""

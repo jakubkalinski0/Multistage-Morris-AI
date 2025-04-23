@@ -1,8 +1,7 @@
 import copy
 
-from GamePhase import GamePhase
-from Player import Player
-from Position import Position
+from game.GamePhase import GamePhase
+from game.util.Player import Player
 
 
 class BoardState:

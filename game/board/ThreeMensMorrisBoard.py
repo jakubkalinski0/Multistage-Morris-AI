@@ -1,6 +1,6 @@
-from Board import Board
-from Player import Player
-from Maps import THREE_MEN_GRAPH,THREE_MEN_MILLS
+from game.board.Board import Board
+from game.util.Player import Player
+from game.board.Maps import THREE_MEN_GRAPH,THREE_MEN_MILLS
 
 
 class ThreeMensMorrisBoard(Board):

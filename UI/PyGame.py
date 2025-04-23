@@ -1,14 +1,14 @@
 import sys
 import pygame
-from MoveType import MoveType
-from Player import Player
-from NineMensMorrisBoard import NineMensMorrisBoard
-from ThreeMensMorrisBoard import ThreeMensMorrisBoard
-from SixMensMorrisBoard import SixMensMorrisBoard
-from TwelveMensMorrisBoard import TwelveMensMorrisBoard
-from Minimax import Minimax
-from Maps import NINE_MEN_MILLS,SIX_MEN_MILLS,THREE_MEN_MILLS,TWELVE_MEN_MILLS
-from MonteCarlo import MonteCarloTreeSearch  # Import klasy Monte Carlo
+from game.util.MoveType import MoveType
+from game.util.Player import Player
+from game.board.NineMensMorrisBoard import NineMensMorrisBoard
+from game.board.ThreeMensMorrisBoard import ThreeMensMorrisBoard
+from game.board.SixMensMorrisBoard import SixMensMorrisBoard
+from game.board.TwelveMensMorrisBoard import TwelveMensMorrisBoard
+from engines.Minimax import Minimax
+from game.board.Maps import NINE_MEN_MILLS,SIX_MEN_MILLS,THREE_MEN_MILLS,TWELVE_MEN_MILLS
+from engines.MonteCarlo import MonteCarloTreeSearch  # Import klasy Monte Carlo
 
 SCREEN_WIDTH = 1536 
 SCREEN_HEIGHT = 864
@@ -21,7 +21,7 @@ WHITE_TYPE=[(210, 180, 140),(18, 159, 184),(173, 88, 2)]
 BLACK_TYPE=[(30, 30, 30),(0, 200, 0),(100, 100, 100)]
 RETRO_TYPE=[(0, 0, 255),(255, 0, 0),(0, 255, 255)]
 
-FONT_PATH = "font.ttf"
+FONT_PATH = "../font.ttf"
 
 # --- MAPOWANIE POZYCJI ---
 nine_mens_coords = {

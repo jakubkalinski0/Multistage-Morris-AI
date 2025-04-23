@@ -1,8 +1,8 @@
-from typing import List, Dict, Set
-from Board import Board
-from BoardState import BoardState
-from Player import Player
-from GamePhase import GamePhase
+from typing import List
+from game.board.Board import Board
+from game.board.BoardState import BoardState
+from game.util.Player import Player
+from game.GamePhase import GamePhase
 
 class MorrisHeuristics:
     """Heuristic for evaluating Morris game states."""

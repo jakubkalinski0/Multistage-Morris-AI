@@ -1,11 +1,8 @@
 import networkx as nx
-from typing import Dict, List
-from Board import Board
-from BoardState import BoardState
-from Move import Move
-from Player import Player
-from ThreeMensMorrisBoard import ThreeMensMorrisBoard
-from SixMensMorrisBoard import SixMensMorrisBoard
+from game.board.Board import Board
+from game.board.BoardState import BoardState
+from game.util.Player import Player
+from game.board.SixMensMorrisBoard import SixMensMorrisBoard
 import sys
 sys.setrecursionlimit(10000)
 

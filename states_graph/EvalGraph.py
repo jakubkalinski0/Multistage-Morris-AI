@@ -1,10 +1,10 @@
-from ThreeMensMorrisBoard import ThreeMensMorrisBoard
-from Player import Player
+from game.board.ThreeMensMorrisBoard import ThreeMensMorrisBoard
+from game.util.Player import Player
 import networkx as nx
 
 
 # Wczytanie grafu
-graph = nx.read_adjlist("Threegame_graph.txt",create_using=nx.DiGraph())
+graph = nx.read_adjlist("Threegame_graph.txt", create_using=nx.DiGraph())
 
 values = {}
 for node in graph.nodes():

@@ -1,14 +1,14 @@
 from abc import ABC, abstractmethod
-from typing import List, Tuple, Set, Optional
+from typing import List, Tuple
 
 import networkit as nk
 
-from BoardState import BoardState
-from Move import Move
-from MoveType import MoveType
-from Player import Player
-from Position import Position
-from GamePhase import GamePhase
+from game.board.BoardState import BoardState
+from game.util.Move import Move
+from game.util.MoveType import MoveType
+from game.util.Player import Player
+from game.util.Position import Position
+from game.GamePhase import GamePhase
 
 
 class Board(ABC):

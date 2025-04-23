@@ -1,8 +1,6 @@
 import networkx as nx
-from ThreeMensMorrisBoard import ThreeMensMorrisBoard
-from GameGraph import GameGraphGenerator
-from Board import Board
-from BoardState import BoardState
+from game.board.ThreeMensMorrisBoard import ThreeMensMorrisBoard
+
 if __name__ == "__main__":
 
 

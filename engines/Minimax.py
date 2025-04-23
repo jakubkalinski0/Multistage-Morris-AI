@@ -1,11 +1,10 @@
-from typing import Tuple, Optional, List
+from typing import Optional
 import time
-import math
-from Board import Board
-from BoardState import BoardState
-from Player import Player
-from Move import Move
-from GamePhase import GamePhase
+from game.board.Board import Board
+from game.board.BoardState import BoardState
+from game.util.Player import Player
+from game.util.Move import Move
+from game.GamePhase import GamePhase
 
 
 class Minimax:
