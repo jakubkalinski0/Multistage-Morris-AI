@@ -1,4 +1,5 @@
 import sys
+import os
 import pygame
 from game.util.MoveType import MoveType
 from game.util.Player import Player
@@ -21,7 +22,8 @@ WHITE_TYPE=[(210, 180, 140),(18, 159, 184),(173, 88, 2)]
 BLACK_TYPE=[(30, 30, 30),(0, 200, 0),(100, 100, 100)]
 RETRO_TYPE=[(0, 0, 255),(255, 0, 0),(0, 255, 255)]
 
-FONT_PATH = "../font.ttf"
+current_dir = os.path.dirname(os.path.abspath(__file__))
+FONT_PATH = os.path.join(current_dir, "font.ttf")
 
 # --- MAPOWANIE POZYCJI ---
 nine_mens_coords = {
@@ -160,7 +162,8 @@ class GameMenu:
             "3. Hard (3 ply)",
             "4. Expert (4 ply)",
             "5. Monte Carlo (0.1s)",
-            "6. Monte Carlo (1s)"
+            "6. Monte Carlo (1s)",
+            "7. Graph-based AI"  # Add this new option
         ]
 
         self.selected_board = 2
@@ -323,6 +326,20 @@ class GameGUI:
             elif ai_difficulty == 5:  # Monte Carlo (1s)
                 self.ai = MonteCarloTreeSearch(self.board)
                 self.ai_time_limit = 1.0
+            elif ai_difficulty == 6:  # Graph-based AI
+                from engines.Unbitable import GraphAgent
+                # Select the appropriate graph file based on the board type
+                if isinstance(self.board, ThreeMensMorrisBoard):
+                    graph_path = "states_graph/Threegame_graph_evaluated.txt"
+                else:
+                    # For other boards, use a default fallback (like Minimax)
+                    self.ai = Minimax(self.board, 3)  # Fallback to Hard difficulty
+                    print("Graph AI is only available for Three Men's Morris board")
+                    self.ai_time_limit = 0
+                    return
+                    
+                self.ai = GraphAgent(self.board, graph_path)
+                self.ai_time_limit = 0  # Graph agent doesn't need time limit
         else:
             self.ai_time_limit = 0
 
@@ -475,9 +492,9 @@ class GameGUI:
     def play_ai_turn(self):
         if isinstance(self.ai, MonteCarloTreeSearch):
             ai_move = self.ai.get_best_move(self.state, self.ai_time_limit)
-        else:
+        elif isinstance(self.ai, Minimax):
             ai_move = self.ai.get_best_move(self.state, self.ai_difficulty)
-
+        else: ai_move = self.ai.get_best_move(self.state)
         if ai_move is None:
             self.running = False
             return
