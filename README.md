@@ -71,8 +71,8 @@ For more details, refer to the official rules of Morris.
 ## Project Structure
 
 ```
-Multistage-Morris-AI/
-│
+## Project Structure
+
 ├── main.py                # Entry point of the application
 ├── ai/
 │   ├── strategy.py        # Core AI decision-making logic
