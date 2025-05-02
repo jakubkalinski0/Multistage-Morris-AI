@@ -109,6 +109,5 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ## Contact
 
 For questions or feedback, please contact:
-
 - **Authors**: Jakub Kaliński, Kacper Feliks
 - **GitHub Profiles**: [@jakubkalinski0](https://github.com/jakubkalinski0) [@Kacperon](https://github.com/Kacperon)
