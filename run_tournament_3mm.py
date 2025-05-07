@@ -26,7 +26,7 @@ from engines.mDQN_Agent import MDQNAgent  # Modular DQN
 
 # --- Tournament Configuration ---
 BOARD_CLASS = ThreeMensMorrisBoard
-NUM_GAMES_PER_MATCHUP = 100  # Reduced for quicker testing, increase later
+NUM_GAMES_PER_MATCHUP = 20 # Reduced for quicker testing, increase later
 MAX_MOVES_PER_GAME = 100
 
 MODELS_DIR = "models"
