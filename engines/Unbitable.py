@@ -29,7 +29,6 @@ class GraphAgent:
             
             if str(next_node + winning_mod) in self.graph.nodes:
                 winning_moves.append(move)
-        print(winning_moves)
         if winning_moves:
             return random.choice(winning_moves)
         else:
