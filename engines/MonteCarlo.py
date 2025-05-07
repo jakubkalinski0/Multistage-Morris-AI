@@ -43,9 +43,6 @@ class MonteCarloTreeSearch:
             legal_moves,
             key=lambda m: move_scores[m] / move_simulations[m] if move_simulations[m] > 0 else -float('inf')
         )
-
-        print(f"MCTS completed. Simulations: {self.simulations}")
-        print(f"Best move: {best_move}, Score: {move_scores[best_move]}, Simulations: {move_simulations[best_move]}")
         return best_move
 
     def simulate_random_game(self, state: BoardState, depth: int, original_player: Player) -> float:

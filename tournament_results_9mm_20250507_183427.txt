@@ -1,0 +1,335 @@
+Tournament Started: 20250507_183427
+Board: ThreeMensMorrisBoard, Games per matchup: 100
+Agents: Random, Minimax-L1, Minimax-L2, Minimax-L3, GraphAgent, StateValueAgent, RLDQNAgent, MDQNAgent, MCTS-Fast, MCTS-Deep
+
+--- Matchup: Random vs Minimax-L1 ---
+  Playing 50 games: Random (W) vs Minimax-L1 (B)...
+  Playing 50 games: Minimax-L1 (W) vs Random (B)...
+  Matchup Totals: Random wins (as W): 1, Minimax-L1 wins (as W): 49, Draws: 0
+
+--- Matchup: Random vs Minimax-L2 ---
+  Playing 50 games: Random (W) vs Minimax-L2 (B)...
+  Playing 50 games: Minimax-L2 (W) vs Random (B)...
+  Matchup Totals: Random wins (as W): 0, Minimax-L2 wins (as W): 49, Draws: 0
+
+--- Matchup: Random vs Minimax-L3 ---
+  Playing 50 games: Random (W) vs Minimax-L3 (B)...
+  Playing 50 games: Minimax-L3 (W) vs Random (B)...
+  Matchup Totals: Random wins (as W): 0, Minimax-L3 wins (as W): 50, Draws: 0
+
+--- Matchup: Random vs GraphAgent ---
+  Playing 50 games: Random (W) vs GraphAgent (B)...
+  Playing 50 games: GraphAgent (W) vs Random (B)...
+  Matchup Totals: Random wins (as W): 2, GraphAgent wins (as W): 50, Draws: 0
+
+--- Matchup: Random vs StateValueAgent ---
+  Playing 50 games: Random (W) vs StateValueAgent (B)...
+  Playing 50 games: StateValueAgent (W) vs Random (B)...
+  Matchup Totals: Random wins (as W): 40, StateValueAgent wins (as W): 23, Draws: 0
+
+--- Matchup: Random vs RLDQNAgent ---
+  Playing 50 games: Random (W) vs RLDQNAgent (B)...
+  Playing 50 games: RLDQNAgent (W) vs Random (B)...
+  Matchup Totals: Random wins (as W): 28, RLDQNAgent wins (as W): 22, Draws: 0
+
+--- Matchup: Random vs MDQNAgent ---
+  Playing 50 games: Random (W) vs MDQNAgent (B)...
+  Playing 50 games: MDQNAgent (W) vs Random (B)...
+  Matchup Totals: Random wins (as W): 29, MDQNAgent wins (as W): 29, Draws: 0
+
+--- Matchup: Random vs MCTS-Fast ---
+  Playing 50 games: Random (W) vs MCTS-Fast (B)...
+  Playing 50 games: MCTS-Fast (W) vs Random (B)...
+  Matchup Totals: Random wins (as W): 17, MCTS-Fast wins (as W): 42, Draws: 0
+
+--- Matchup: Random vs MCTS-Deep ---
+  Playing 50 games: Random (W) vs MCTS-Deep (B)...
+  Playing 50 games: MCTS-Deep (W) vs Random (B)...
+  Matchup Totals: Random wins (as W): 3, MCTS-Deep wins (as W): 47, Draws: 0
+
+--- Matchup: Minimax-L1 vs Minimax-L2 ---
+  Playing 50 games: Minimax-L1 (W) vs Minimax-L2 (B)...
+  Playing 50 games: Minimax-L2 (W) vs Minimax-L1 (B)...
+  Matchup Totals: Minimax-L1 wins (as W): 0, Minimax-L2 wins (as W): 50, Draws: 0
+
+--- Matchup: Minimax-L1 vs Minimax-L3 ---
+  Playing 50 games: Minimax-L1 (W) vs Minimax-L3 (B)...
+  Playing 50 games: Minimax-L3 (W) vs Minimax-L1 (B)...
+  Matchup Totals: Minimax-L1 wins (as W): 0, Minimax-L3 wins (as W): 50, Draws: 0
+
+--- Matchup: Minimax-L1 vs GraphAgent ---
+  Playing 50 games: Minimax-L1 (W) vs GraphAgent (B)...
+  Playing 50 games: GraphAgent (W) vs Minimax-L1 (B)...
+  Matchup Totals: Minimax-L1 wins (as W): 41, GraphAgent wins (as W): 50, Draws: 0
+
+--- Matchup: Minimax-L1 vs StateValueAgent ---
+  Playing 50 games: Minimax-L1 (W) vs StateValueAgent (B)...
+  Playing 50 games: StateValueAgent (W) vs Minimax-L1 (B)...
+  Matchup Totals: Minimax-L1 wins (as W): 50, StateValueAgent wins (as W): 0, Draws: 0
+
+--- Matchup: Minimax-L1 vs RLDQNAgent ---
+  Playing 50 games: Minimax-L1 (W) vs RLDQNAgent (B)...
+  Playing 50 games: RLDQNAgent (W) vs Minimax-L1 (B)...
+  Matchup Totals: Minimax-L1 wins (as W): 50, RLDQNAgent wins (as W): 1, Draws: 0
+
+--- Matchup: Minimax-L1 vs MDQNAgent ---
+  Playing 50 games: Minimax-L1 (W) vs MDQNAgent (B)...
+  Playing 50 games: MDQNAgent (W) vs Minimax-L1 (B)...
+  Matchup Totals: Minimax-L1 wins (as W): 50, MDQNAgent wins (as W): 1, Draws: 0
+
+--- Matchup: Minimax-L1 vs MCTS-Fast ---
+  Playing 50 games: Minimax-L1 (W) vs MCTS-Fast (B)...
+  Playing 50 games: MCTS-Fast (W) vs Minimax-L1 (B)...
+  Matchup Totals: Minimax-L1 wins (as W): 47, MCTS-Fast wins (as W): 4, Draws: 0
+
+--- Matchup: Minimax-L1 vs MCTS-Deep ---
+  Playing 50 games: Minimax-L1 (W) vs MCTS-Deep (B)...
+  Playing 50 games: MCTS-Deep (W) vs Minimax-L1 (B)...
+  Matchup Totals: Minimax-L1 wins (as W): 42, MCTS-Deep wins (as W): 8, Draws: 0
+
+--- Matchup: Minimax-L2 vs Minimax-L3 ---
+  Playing 50 games: Minimax-L2 (W) vs Minimax-L3 (B)...
+  Playing 50 games: Minimax-L3 (W) vs Minimax-L2 (B)...
+  Matchup Totals: Minimax-L2 wins (as W): 0, Minimax-L3 wins (as W): 0, Draws: 0
+
+--- Matchup: Minimax-L2 vs GraphAgent ---
+  Playing 50 games: Minimax-L2 (W) vs GraphAgent (B)...
+  Playing 50 games: GraphAgent (W) vs Minimax-L2 (B)...
+  Matchup Totals: Minimax-L2 wins (as W): 20, GraphAgent wins (as W): 49, Draws: 1
+
+--- Matchup: Minimax-L2 vs StateValueAgent ---
+  Playing 50 games: Minimax-L2 (W) vs StateValueAgent (B)...
+  Playing 50 games: StateValueAgent (W) vs Minimax-L2 (B)...
+  Matchup Totals: Minimax-L2 wins (as W): 50, StateValueAgent wins (as W): 0, Draws: 0
+
+--- Matchup: Minimax-L2 vs RLDQNAgent ---
+  Playing 50 games: Minimax-L2 (W) vs RLDQNAgent (B)...
+  Playing 50 games: RLDQNAgent (W) vs Minimax-L2 (B)...
+  Matchup Totals: Minimax-L2 wins (as W): 49, RLDQNAgent wins (as W): 1, Draws: 0
+
+--- Matchup: Minimax-L2 vs MDQNAgent ---
+  Playing 50 games: Minimax-L2 (W) vs MDQNAgent (B)...
+  Playing 50 games: MDQNAgent (W) vs Minimax-L2 (B)...
+  Matchup Totals: Minimax-L2 wins (as W): 48, MDQNAgent wins (as W): 0, Draws: 0
+
+--- Matchup: Minimax-L2 vs MCTS-Fast ---
+  Playing 50 games: Minimax-L2 (W) vs MCTS-Fast (B)...
+  Playing 50 games: MCTS-Fast (W) vs Minimax-L2 (B)...
+  Matchup Totals: Minimax-L2 wins (as W): 43, MCTS-Fast wins (as W): 3, Draws: 0
+
+--- Matchup: Minimax-L2 vs MCTS-Deep ---
+  Playing 50 games: Minimax-L2 (W) vs MCTS-Deep (B)...
+  Playing 50 games: MCTS-Deep (W) vs Minimax-L2 (B)...
+  Matchup Totals: Minimax-L2 wins (as W): 40, MCTS-Deep wins (as W): 6, Draws: 0
+
+--- Matchup: Minimax-L3 vs GraphAgent ---
+  Playing 50 games: Minimax-L3 (W) vs GraphAgent (B)...
+  Playing 50 games: GraphAgent (W) vs Minimax-L3 (B)...
+  Matchup Totals: Minimax-L3 wins (as W): 33, GraphAgent wins (as W): 48, Draws: 3
+
+--- Matchup: Minimax-L3 vs StateValueAgent ---
+  Playing 50 games: Minimax-L3 (W) vs StateValueAgent (B)...
+  Playing 50 games: StateValueAgent (W) vs Minimax-L3 (B)...
+  Matchup Totals: Minimax-L3 wins (as W): 50, StateValueAgent wins (as W): 0, Draws: 0
+
+--- Matchup: Minimax-L3 vs RLDQNAgent ---
+  Playing 50 games: Minimax-L3 (W) vs RLDQNAgent (B)...
+  Playing 50 games: RLDQNAgent (W) vs Minimax-L3 (B)...
+  Matchup Totals: Minimax-L3 wins (as W): 50, RLDQNAgent wins (as W): 0, Draws: 0
+
+--- Matchup: Minimax-L3 vs MDQNAgent ---
+  Playing 50 games: Minimax-L3 (W) vs MDQNAgent (B)...
+  Playing 50 games: MDQNAgent (W) vs Minimax-L3 (B)...
+  Matchup Totals: Minimax-L3 wins (as W): 50, MDQNAgent wins (as W): 0, Draws: 0
+
+--- Matchup: Minimax-L3 vs MCTS-Fast ---
+  Playing 50 games: Minimax-L3 (W) vs MCTS-Fast (B)...
+  Playing 50 games: MCTS-Fast (W) vs Minimax-L3 (B)...
+  Matchup Totals: Minimax-L3 wins (as W): 50, MCTS-Fast wins (as W): 1, Draws: 0
+
+--- Matchup: Minimax-L3 vs MCTS-Deep ---
+  Playing 50 games: Minimax-L3 (W) vs MCTS-Deep (B)...
+  Playing 50 games: MCTS-Deep (W) vs Minimax-L3 (B)...
+  Matchup Totals: Minimax-L3 wins (as W): 43, MCTS-Deep wins (as W): 6, Draws: 0
+
+--- Matchup: GraphAgent vs StateValueAgent ---
+  Playing 50 games: GraphAgent (W) vs StateValueAgent (B)...
+  Playing 50 games: StateValueAgent (W) vs GraphAgent (B)...
+  Matchup Totals: GraphAgent wins (as W): 50, StateValueAgent wins (as W): 5, Draws: 0
+
+--- Matchup: GraphAgent vs RLDQNAgent ---
+  Playing 50 games: GraphAgent (W) vs RLDQNAgent (B)...
+  Playing 50 games: RLDQNAgent (W) vs GraphAgent (B)...
+  Matchup Totals: GraphAgent wins (as W): 50, RLDQNAgent wins (as W): 1, Draws: 0
+
+--- Matchup: GraphAgent vs MDQNAgent ---
+  Playing 50 games: GraphAgent (W) vs MDQNAgent (B)...
+  Playing 50 games: MDQNAgent (W) vs GraphAgent (B)...
+  Matchup Totals: GraphAgent wins (as W): 50, MDQNAgent wins (as W): 3, Draws: 0
+
+--- Matchup: GraphAgent vs MCTS-Fast ---
+  Playing 50 games: GraphAgent (W) vs MCTS-Fast (B)...
+  Playing 50 games: MCTS-Fast (W) vs GraphAgent (B)...
+  Matchup Totals: GraphAgent wins (as W): 50, MCTS-Fast wins (as W): 4, Draws: 0
+
+--- Matchup: GraphAgent vs MCTS-Deep ---
+  Playing 50 games: GraphAgent (W) vs MCTS-Deep (B)...
+  Playing 50 games: MCTS-Deep (W) vs GraphAgent (B)...
+  Matchup Totals: GraphAgent wins (as W): 50, MCTS-Deep wins (as W): 11, Draws: 0
+
+--- Matchup: StateValueAgent vs RLDQNAgent ---
+  Playing 50 games: StateValueAgent (W) vs RLDQNAgent (B)...
+  Playing 50 games: RLDQNAgent (W) vs StateValueAgent (B)...
+  Matchup Totals: StateValueAgent wins (as W): 21, RLDQNAgent wins (as W): 37, Draws: 0
+
+--- Matchup: StateValueAgent vs MDQNAgent ---
+  Playing 50 games: StateValueAgent (W) vs MDQNAgent (B)...
+  Playing 50 games: MDQNAgent (W) vs StateValueAgent (B)...
+  Matchup Totals: StateValueAgent wins (as W): 25, MDQNAgent wins (as W): 31, Draws: 0
+
+--- Matchup: StateValueAgent vs MCTS-Fast ---
+  Playing 50 games: StateValueAgent (W) vs MCTS-Fast (B)...
+  Playing 50 games: MCTS-Fast (W) vs StateValueAgent (B)...
+  Matchup Totals: StateValueAgent wins (as W): 14, MCTS-Fast wins (as W): 43, Draws: 0
+
+--- Matchup: StateValueAgent vs MCTS-Deep ---
+  Playing 50 games: StateValueAgent (W) vs MCTS-Deep (B)...
+  Playing 50 games: MCTS-Deep (W) vs StateValueAgent (B)...
+  Matchup Totals: StateValueAgent wins (as W): 3, MCTS-Deep wins (as W): 47, Draws: 0
+
+--- Matchup: RLDQNAgent vs MDQNAgent ---
+  Playing 50 games: RLDQNAgent (W) vs MDQNAgent (B)...
+  Playing 50 games: MDQNAgent (W) vs RLDQNAgent (B)...
+  Matchup Totals: RLDQNAgent wins (as W): 30, MDQNAgent wins (as W): 21, Draws: 0
+
+--- Matchup: RLDQNAgent vs MCTS-Fast ---
+  Playing 50 games: RLDQNAgent (W) vs MCTS-Fast (B)...
+  Playing 50 games: MCTS-Fast (W) vs RLDQNAgent (B)...
+  Matchup Totals: RLDQNAgent wins (as W): 13, MCTS-Fast wins (as W): 39, Draws: 0
+
+--- Matchup: RLDQNAgent vs MCTS-Deep ---
+  Playing 50 games: RLDQNAgent (W) vs MCTS-Deep (B)...
+  Playing 50 games: MCTS-Deep (W) vs RLDQNAgent (B)...
+  Matchup Totals: RLDQNAgent wins (as W): 4, MCTS-Deep wins (as W): 47, Draws: 0
+
+--- Matchup: MDQNAgent vs MCTS-Fast ---
+  Playing 50 games: MDQNAgent (W) vs MCTS-Fast (B)...
+  Playing 50 games: MCTS-Fast (W) vs MDQNAgent (B)...
+  Matchup Totals: MDQNAgent wins (as W): 15, MCTS-Fast wins (as W): 36, Draws: 0
+
+--- Matchup: MDQNAgent vs MCTS-Deep ---
+  Playing 50 games: MDQNAgent (W) vs MCTS-Deep (B)...
+  Playing 50 games: MCTS-Deep (W) vs MDQNAgent (B)...
+  Matchup Totals: MDQNAgent wins (as W): 4, MCTS-Deep wins (as W): 50, Draws: 0
+
+--- Matchup: MCTS-Fast vs MCTS-Deep ---
+  Playing 50 games: MCTS-Fast (W) vs MCTS-Deep (B)...
+  Playing 50 games: MCTS-Deep (W) vs MCTS-Fast (B)...
+  Matchup Totals: MCTS-Fast wins (as W): 14, MCTS-Deep wins (as W): 41, Draws: 0
+
+
+--- Overall Tournament Results ---
+Agent: Random
+  Wins: 209, Losses: 691, Draws: 0
+  Win Rate: 23.22%
+  Played as White: 450, Played as Black: 450
+--------------------
+Agent: Minimax-L1
+  Wins: 614, Losses: 286, Draws: 0
+  Win Rate: 68.22%
+  Played as White: 450, Played as Black: 450
+--------------------
+Agent: Minimax-L2
+  Wins: 739, Losses: 160, Draws: 1
+  Win Rate: 82.11%
+  Played as White: 450, Played as Black: 450
+--------------------
+Agent: Minimax-L3
+  Wins: 769, Losses: 128, Draws: 3
+  Win Rate: 85.44%
+  Played as White: 450, Played as Black: 450
+--------------------
+Agent: GraphAgent
+  Wins: 776, Losses: 120, Draws: 4
+  Win Rate: 86.22%
+  Played as White: 450, Played as Black: 450
+--------------------
+Agent: StateValueAgent
+  Wins: 143, Losses: 757, Draws: 0
+  Win Rate: 15.89%
+  Played as White: 450, Played as Black: 450
+--------------------
+Agent: RLDQNAgent
+  Wins: 204, Losses: 696, Draws: 0
+  Win Rate: 22.67%
+  Played as White: 450, Played as Black: 450
+--------------------
+Agent: MDQNAgent
+  Wins: 186, Losses: 714, Draws: 0
+  Win Rate: 20.67%
+  Played as White: 450, Played as Black: 450
+--------------------
+Agent: MCTS-Fast
+  Wins: 346, Losses: 554, Draws: 0
+  Win Rate: 38.44%
+  Played as White: 450, Played as Black: 450
+--------------------
+Agent: MCTS-Deep
+  Wins: 510, Losses: 390, Draws: 0
+  Win Rate: 56.67%
+  Played as White: 450, Played as Black: 450
+--------------------
+Tournament results saved to tournament_results_9mm_20250507_183427.txt
+Tournament results matrix saved to tournament_results_9mm_20250507_183427.xlsx
+
+--- Agent Timing Statistics ---
+Agent: Random
+  Total time: 50.196 seconds
+  Total moves: 5530
+  Average time per move: 0.009077 seconds
+--------------------
+Agent: Minimax-L1
+  Total time: 36.824 seconds
+  Total moves: 4199
+  Average time per move: 0.008770 seconds
+--------------------
+Agent: Minimax-L2
+  Total time: 78.709 seconds
+  Total moves: 4576
+  Average time per move: 0.017200 seconds
+--------------------
+Agent: Minimax-L3
+  Total time: 203.442 seconds
+  Total moves: 4659
+  Average time per move: 0.043666 seconds
+--------------------
+Agent: GraphAgent
+  Total time: 275.710 seconds
+  Total moves: 6428
+  Average time per move: 0.042892 seconds
+--------------------
+Agent: StateValueAgent
+  Total time: 47.562 seconds
+  Total moves: 5333
+  Average time per move: 0.008918 seconds
+--------------------
+Agent: RLDQNAgent
+  Total time: 45.856 seconds
+  Total moves: 5182
+  Average time per move: 0.008849 seconds
+--------------------
+Agent: MDQNAgent
+  Total time: 44.906 seconds
+  Total moves: 5137
+  Average time per move: 0.008742 seconds
+--------------------
+Agent: MCTS-Fast
+  Total time: 87.393 seconds
+  Total moves: 4374
+  Average time per move: 0.019980 seconds
+--------------------
+Agent: MCTS-Deep
+  Total time: 238.601 seconds
+  Total moves: 4005
+  Average time per move: 0.059576 seconds
+--------------------

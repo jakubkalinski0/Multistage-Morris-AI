@@ -44,10 +44,10 @@ class Minimax:
 
             # Check if time limit exceeded
             if time.time() - self.start_time > max_time_seconds:
-                print(f"Time limit reached. Evaluated {self.nodes_evaluated} nodes.")
+                
                 break
 
-        print(f"Minimax completed. Best move value: {best_value}. Evaluated {self.nodes_evaluated} nodes.")
+        
         return best_move
 
     def minimax(self, state: BoardState, depth: int, alpha: float, beta: float,

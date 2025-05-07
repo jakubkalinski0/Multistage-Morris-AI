@@ -1,9 +1,11 @@
 # --- START OF FILE run_tournament.py ---
+import time
 import os
 import sys
 from datetime import datetime
 from typing import Type, Optional, List  # Added List for type hinting
 import random  # <--- ENSURE THIS IMPORT IS PRESENT
+import pandas as pd  # Add this import at the top of the file
 
 # Add project root to sys.path to allow imports from game and engines
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__)))
@@ -15,6 +17,7 @@ from game.board.Board import Board
 from game.board.BoardState import BoardState
 from game.util.Player import Player
 from engines.Minimax import Minimax
+from engines.MonteCarlo import MonteCarloTreeSearch
 # from engines.MonteCarlo import MonteCarloTreeSearch # Uncomment if you add MCTS to tournament
 from engines.Unbitable import GraphAgent  # "Perfect" agent for 3MM
 from engines.StateValueAgent import StateValueAgent  # Trained on graph values
@@ -23,7 +26,7 @@ from engines.mDQN_Agent import MDQNAgent  # Modular DQN
 
 # --- Tournament Configuration ---
 BOARD_CLASS = ThreeMensMorrisBoard
-NUM_GAMES_PER_MATCHUP = 10  # Reduced for quicker testing, increase later
+NUM_GAMES_PER_MATCHUP = 100  # Reduced for quicker testing, increase later
 MAX_MOVES_PER_GAME = 100
 
 MODELS_DIR = "models"
@@ -61,36 +64,61 @@ def get_agent_instance(agent_name: str, board: Board, player_id: Player):
                 return random.choice(legal_moves) if legal_moves else None  # Uses the imported 'random' module
 
         return RandomAgent(board)
+    if agent_name == "MCTS-Fast":
+        agent = MonteCarloTreeSearch(board)
+        agent.time_limit = 0.02  # Store time limit as an attribute
+        return agent
+    if agent_name == "MCTS-Deep":
+        agent = MonteCarloTreeSearch(board)
+        agent.time_limit = 0.1  # Store time limit as an attribute
+        return agent
     print(f"ERROR: Unknown agent name: {agent_name}");
     return None
 
 
-# --- Game Playing Function ---
+# Modify play_game function to track move times
 def play_game(board: Board, agent1, agent2, max_moves=MAX_MOVES_PER_GAME):
     state = board.get_initial_board_state()
     game_moves = 0
+    # Add timing tracking
+    agent1_times = []
+    agent2_times = []
+    
     while not board.check_if_game_is_over(state) and game_moves < max_moves:
         current_agent = agent1 if state.current_player == Player.WHITE else agent2
         move = None
         try:
-            # Removed MonteCarloTreeSearch check as it wasn't imported by default
+            # Measure move calculation time
+            start_time = time.time()
+            
             if isinstance(current_agent, Minimax):
-                move = current_agent.get_best_move(state, max_time_seconds=0.5)  # Or just pass state
+                move = current_agent.get_best_move(state, max_time_seconds=0.5)
+            elif isinstance(current_agent, MonteCarloTreeSearch):
+                move = current_agent.get_best_move(state, max_time_seconds=getattr(current_agent, "time_limit", 0.1))
             else:
                 move = current_agent.get_best_move(state)
+                
+            end_time = time.time()
+            # Track time for appropriate agent
+            if current_agent == agent1:
+                agent1_times.append(end_time - start_time)
+            else:
+                agent2_times.append(end_time - start_time)
+                
         except Exception as e:
             print(f"Error during {type(current_agent).__name__} get_best_move: {e}")
             legal_moves_left = board.get_legal_moves(state)
             if not legal_moves_left:
                 break
             else:
-                move = random.choice(legal_moves_left)  # Uses imported 'random'
+                move = random.choice(legal_moves_left)
         if move is None: break
         state = board.make_move(state, move)
         game_moves += 1
+        
     winner = board.get_winner(state)
-    if game_moves >= max_moves and winner == Player.NONE: return Player.NONE
-    return winner
+    # Return timing information along with winner
+    return winner, agent1_times, agent2_times
 
 
 # --- Main Tournament Logic ---
@@ -98,8 +126,15 @@ def run_tournament(agents_to_test: List[str], num_games: int):
     board = BOARD_CLASS()
     results = {name: {"wins": 0, "losses": 0, "draws": 0, "played_white": 0, "played_black": 0} for name in
                agents_to_test}
+    # Add timing stats
+    timing_stats = {name: {"total_time": 0.0, "move_count": 0} for name in agents_to_test}
+    
+    # Initialize matchup matrix for Excel output
+    matchup_results = {agent1: {agent2: 0 for agent2 in agents_to_test} for agent1 in agents_to_test}
+    
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    results_filename = f"tournament_results_{board.board_size}mm_{timestamp}.txt"  # Corrected board access
+    results_filename = f"tournament_results_{board.board_size}mm_{timestamp}.txt"
+    excel_filename = f"tournament_results_{board.board_size}mm_{timestamp}.xlsx"
 
     with open(results_filename, "w") as f_out:
         log_and_print = lambda msg: (f_out.write(msg + "\n"), print(msg))
@@ -109,12 +144,12 @@ def run_tournament(agents_to_test: List[str], num_games: int):
 
         for i in range(len(agents_to_test)):
             for j in range(i, len(agents_to_test)):
-                agent1_name = agents_to_test[i];
+                agent1_name = agents_to_test[i]
                 agent2_name = agents_to_test[j]
                 if agent1_name == agent2_name and len(agents_to_test) > 1: continue
                 log_and_print(f"--- Matchup: {agent1_name} vs {agent2_name} ---")
-                matchup_wins_agent1_as_white = 0;
-                matchup_wins_agent2_as_white = 0;
+                matchup_wins_agent1_as_white = 0
+                matchup_wins_agent2_as_white = 0
                 matchup_draws = 0
 
                 # Agent1 as White
@@ -126,18 +161,32 @@ def run_tournament(agents_to_test: List[str], num_games: int):
                     if not current_agent1 or not current_agent2: log_and_print(
                         "    Skipping (agent init error)"); continue
                     for game_num in range(num_games_half1):
-                        winner = play_game(board, current_agent1, current_agent2)
+                        winner, agent1_times, agent2_times = play_game(board, current_agent1, current_agent2)
                         if winner == Player.WHITE:
-                            results[agent1_name]["wins"] += 1; results[agent2_name][
-                                "losses"] += 1; matchup_wins_agent1_as_white += 1
+                            results[agent1_name]["wins"] += 1
+                            results[agent2_name]["losses"] += 1
+                            matchup_wins_agent1_as_white += 1
+                            matchup_results[agent1_name][agent2_name] += 1  # Track win in matrix
                         elif winner == Player.BLACK:
-                            results[agent2_name]["wins"] += 1; results[agent1_name]["losses"] += 1
+                            results[agent2_name]["wins"] += 1
+                            results[agent1_name]["losses"] += 1
+                            matchup_results[agent2_name][agent1_name] += 1  # Track win in matrix
                         else:
-                            results[agent1_name]["draws"] += 1; results[agent2_name]["draws"] += 1; matchup_draws += 1
-                        results[agent1_name]["played_white"] += 1;
+                            results[agent1_name]["draws"] += 1
+                            results[agent2_name]["draws"] += 1
+                            matchup_draws += 1
+                        results[agent1_name]["played_white"] += 1
                         results[agent2_name]["played_black"] += 1
                         if (game_num + 1) % (max(1, num_games_half1 // 5)) == 0: print(
                             f"    Game {game_num + 1}/{num_games_half1} done.")
+                        
+                        # After recording win/loss, add timing data
+                        if agent1_times:
+                            timing_stats[agent1_name]["total_time"] += sum(agent1_times)
+                            timing_stats[agent1_name]["move_count"] += len(agent1_times)
+                        if agent2_times:
+                            timing_stats[agent2_name]["total_time"] += sum(agent2_times)
+                            timing_stats[agent2_name]["move_count"] += len(agent2_times)
 
                 # Agent2 as White (if different agents)
                 num_games_half2 = num_games - num_games_half1
@@ -148,22 +197,37 @@ def run_tournament(agents_to_test: List[str], num_games: int):
                     if not current_agent1_sw or not current_agent2_sw: log_and_print(
                         "    Skipping swapped (agent init error)"); continue
                     for game_num in range(num_games_half2):
-                        winner = play_game(board, current_agent2_sw, current_agent1_sw)
+                        winner, agent1_times, agent2_times = play_game(board, current_agent2_sw, current_agent1_sw)
                         if winner == Player.WHITE:
-                            results[agent2_name]["wins"] += 1; results[agent1_name][
-                                "losses"] += 1; matchup_wins_agent2_as_white += 1
+                            results[agent2_name]["wins"] += 1
+                            results[agent1_name]["losses"] += 1
+                            matchup_wins_agent2_as_white += 1
+                            matchup_results[agent2_name][agent1_name] += 1  # Track win in matrix
                         elif winner == Player.BLACK:
-                            results[agent1_name]["wins"] += 1; results[agent2_name]["losses"] += 1
+                            results[agent1_name]["wins"] += 1
+                            results[agent2_name]["losses"] += 1
+                            matchup_results[agent1_name][agent2_name] += 1  # Track win in matrix
                         else:
-                            results[agent1_name]["draws"] += 1; results[agent2_name]["draws"] += 1; matchup_draws += 1
-                        results[agent2_name]["played_white"] += 1;
+                            results[agent1_name]["draws"] += 1
+                            results[agent2_name]["draws"] += 1
+                            matchup_draws += 1
+                        results[agent2_name]["played_white"] += 1
                         results[agent1_name]["played_black"] += 1
                         if (game_num + 1) % (max(1, num_games_half2 // 5)) == 0: print(
                             f"    Game {game_num + 1}/{num_games_half2} done.")
+                        
+                        # After updating matchup results, add timing data for swapped game
+                        if agent1_times:
+                            timing_stats[agent1_name]["total_time"] += sum(agent1_times)
+                            timing_stats[agent1_name]["move_count"] += len(agent1_times)
+                        if agent2_times:
+                            timing_stats[agent2_name]["total_time"] += sum(agent2_times)
+                            timing_stats[agent2_name]["move_count"] += len(agent2_times)
 
                 log_and_print(
                     f"  Matchup Totals: {agent1_name} wins (as W): {matchup_wins_agent1_as_white}, {agent2_name} wins (as W): {matchup_wins_agent2_as_white}, Draws: {matchup_draws}\n")
 
+        # Print traditional summary to terminal and text file
         log_and_print("\n--- Overall Tournament Results ---")
         for agent_name, stats in results.items():
             total_played = stats["wins"] + stats["losses"] + stats["draws"]
@@ -174,13 +238,47 @@ def run_tournament(agents_to_test: List[str], num_games: int):
             log_and_print(f"  Played as White: {stats['played_white']}, Played as Black: {stats['played_black']}")
             log_and_print("--------------------")
         log_and_print(f"Tournament results saved to {results_filename}")
+        
+        # Create Excel file from the matrix data
+        df = pd.DataFrame(matchup_results)
+        
+        # Add headers to explain the matrix
+        with pd.ExcelWriter(excel_filename) as writer:
+            df.to_excel(writer, sheet_name="Tournament Results")
+            # Get the worksheet
+            worksheet = writer.sheets["Tournament Results"]
+            # Write header explanation
+            worksheet.cell(row=1, column=1, value="Wins Matrix: Row player wins against Column player (Column starts as White)")
+            
+            # Add timing data to Excel output
+            timing_df = pd.DataFrame({
+                "Agent": list(timing_stats.keys()),
+                "Avg Time (s)": [stats["total_time"] / max(1, stats["move_count"]) 
+                                for stats in timing_stats.values()],
+                "Total Moves": [stats["move_count"] for stats in timing_stats.values()]
+            })
+            timing_df.to_excel(writer, sheet_name="Timing Statistics")
+        
+        log_and_print(f"Tournament results matrix saved to {excel_filename}")
+        
+        # In the results section, add timing information
+        log_and_print("\n--- Agent Timing Statistics ---")
+        for agent_name, stats in timing_stats.items():
+            if stats["move_count"] > 0:
+                avg_time = stats["total_time"] / stats["move_count"]
+                log_and_print(f"Agent: {agent_name}")
+                log_and_print(f"  Total time: {stats['total_time']:.3f} seconds")
+                log_and_print(f"  Total moves: {stats['move_count']}")
+                log_and_print(f"  Average time per move: {avg_time:.6f} seconds")
+                log_and_print("--------------------")
 
 
 if __name__ == "__main__":
     if not os.path.exists(MODELS_DIR): os.makedirs(MODELS_DIR, exist_ok=True)
     agents_for_3mm_tournament = [
         "Random", "Minimax-L1", "Minimax-L2", "Minimax-L3",
-        "GraphAgent", "StateValueAgent", "RLDQNAgent", "MDQNAgent"
+        "GraphAgent", "StateValueAgent", "RLDQNAgent", "MDQNAgent",
+        "MCTS-Fast", "MCTS-Deep"
     ]
     # agents_for_3mm_tournament = ["Random", "Minimax-L2"] # For quick test
     run_tournament(agents_for_3mm_tournament, NUM_GAMES_PER_MATCHUP)
