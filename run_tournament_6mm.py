@@ -20,7 +20,7 @@ from engines.MonteCarlo import MonteCarloTreeSearch  # Uncommented for MCTS supp
 
 # --- Tournament Configuration ---
 BOARD_CLASS = SixMensMorrisBoard
-NUM_GAMES_PER_MATCHUP = 2  # Start with a smaller number for 6MM
+NUM_GAMES_PER_MATCHUP = 10  # Start with a smaller number for 6MM
 MAX_MOVES_PER_GAME = 250  # 6MM games can be longer
 
 MODELS_DIR = "models"
