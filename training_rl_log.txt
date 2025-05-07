@@ -1,0 +1,133 @@
+Using device: cpu
+Starting RL DQN training for 10000 episodes...
+Model will be saved to: models\9mm_rl_dqn_model.pth
+Action space size: 90
+Using device: cpu
+Starting RL DQN training for 10000 episodes...
+Model will be saved to: models\9mm_rl_dqn_model.pth
+Action space size: 90
+Using device: cpu
+Starting RL DQN training for 10000 episodes...
+Model will be saved to: models\9mm_rl_dqn_model.pth
+Action space size: 90
+Ep 100/10000 | Avg Rew (last 100): 6.59 | Avg Steps: 16.3 | Epsilon: 0.926 | P1 Wins (last 100): 39
+Ep 200/10000 | Avg Rew (last 100): 7.24 | Avg Steps: 15.3 | Epsilon: 0.861 | P1 Wins (last 100): 45
+Ep 300/10000 | Avg Rew (last 100): 6.80 | Avg Steps: 16.1 | Epsilon: 0.799 | P1 Wins (last 100): 41
+Ep 400/10000 | Avg Rew (last 100): 7.49 | Avg Steps: 18.3 | Epsilon: 0.733 | P1 Wins (last 100): 42
+Ep 500/10000 | Avg Rew (last 100): 8.11 | Avg Steps: 17.7 | Epsilon: 0.675 | P1 Wins (last 100): 45
+Model saved at episode 500
+Ep 600/10000 | Avg Rew (last 100): 6.18 | Avg Steps: 16.4 | Epsilon: 0.626 | P1 Wins (last 100): 52
+Ep 700/10000 | Avg Rew (last 100): 7.57 | Avg Steps: 16.5 | Epsilon: 0.581 | P1 Wins (last 100): 36
+Ep 800/10000 | Avg Rew (last 100): 6.93 | Avg Steps: 17.4 | Epsilon: 0.536 | P1 Wins (last 100): 39
+Ep 900/10000 | Avg Rew (last 100): 7.18 | Avg Steps: 16.4 | Epsilon: 0.498 | P1 Wins (last 100): 45
+Ep 1000/10000 | Avg Rew (last 100): 6.81 | Avg Steps: 15.8 | Epsilon: 0.464 | P1 Wins (last 100): 35
+Model saved at episode 1000
+Ep 1100/10000 | Avg Rew (last 100): 6.98 | Avg Steps: 16.4 | Epsilon: 0.431 | P1 Wins (last 100): 44
+Ep 1200/10000 | Avg Rew (last 100): 7.25 | Avg Steps: 14.9 | Epsilon: 0.404 | P1 Wins (last 100): 49
+Ep 1300/10000 | Avg Rew (last 100): 7.19 | Avg Steps: 16.2 | Epsilon: 0.376 | P1 Wins (last 100): 44
+Ep 1400/10000 | Avg Rew (last 100): 6.56 | Avg Steps: 16.9 | Epsilon: 0.350 | P1 Wins (last 100): 43
+Ep 1500/10000 | Avg Rew (last 100): 7.00 | Avg Steps: 16.0 | Epsilon: 0.327 | P1 Wins (last 100): 40
+Model saved at episode 1500
+Ep 1600/10000 | Avg Rew (last 100): 7.77 | Avg Steps: 16.7 | Epsilon: 0.305 | P1 Wins (last 100): 49
+Ep 1700/10000 | Avg Rew (last 100): 7.14 | Avg Steps: 17.1 | Epsilon: 0.284 | P1 Wins (last 100): 36
+Ep 1800/10000 | Avg Rew (last 100): 7.55 | Avg Steps: 17.1 | Epsilon: 0.265 | P1 Wins (last 100): 38
+Ep 1900/10000 | Avg Rew (last 100): 7.73 | Avg Steps: 17.4 | Epsilon: 0.247 | P1 Wins (last 100): 43
+Ep 2000/10000 | Avg Rew (last 100): 7.01 | Avg Steps: 15.7 | Epsilon: 0.232 | P1 Wins (last 100): 31
+Model saved at episode 2000
+Ep 2100/10000 | Avg Rew (last 100): 7.18 | Avg Steps: 16.4 | Epsilon: 0.218 | P1 Wins (last 100): 45
+Ep 2200/10000 | Avg Rew (last 100): 7.48 | Avg Steps: 14.3 | Epsilon: 0.206 | P1 Wins (last 100): 43
+Ep 2300/10000 | Avg Rew (last 100): 7.02 | Avg Steps: 15.6 | Epsilon: 0.194 | P1 Wins (last 100): 49
+Ep 2400/10000 | Avg Rew (last 100): 7.36 | Avg Steps: 16.8 | Epsilon: 0.183 | P1 Wins (last 100): 44
+Ep 2500/10000 | Avg Rew (last 100): 6.86 | Avg Steps: 14.8 | Epsilon: 0.173 | P1 Wins (last 100): 42
+Model saved at episode 2500
+Ep 2600/10000 | Avg Rew (last 100): 7.17 | Avg Steps: 16.6 | Epsilon: 0.163 | P1 Wins (last 100): 50
+Ep 2700/10000 | Avg Rew (last 100): 7.16 | Avg Steps: 16.9 | Epsilon: 0.154 | P1 Wins (last 100): 51
+Ep 2800/10000 | Avg Rew (last 100): 6.93 | Avg Steps: 17.5 | Epsilon: 0.146 | P1 Wins (last 100): 42
+Ep 2900/10000 | Avg Rew (last 100): 6.40 | Avg Steps: 15.9 | Epsilon: 0.138 | P1 Wins (last 100): 46
+Ep 3000/10000 | Avg Rew (last 100): 8.31 | Avg Steps: 17.7 | Epsilon: 0.131 | P1 Wins (last 100): 40
+Model saved at episode 3000
+Ep 3100/10000 | Avg Rew (last 100): 7.75 | Avg Steps: 17.1 | Epsilon: 0.124 | P1 Wins (last 100): 41
+Ep 3200/10000 | Avg Rew (last 100): 7.15 | Avg Steps: 17.0 | Epsilon: 0.118 | P1 Wins (last 100): 38
+Ep 3300/10000 | Avg Rew (last 100): 8.26 | Avg Steps: 18.8 | Epsilon: 0.112 | P1 Wins (last 100): 47
+Ep 3400/10000 | Avg Rew (last 100): 6.56 | Avg Steps: 16.7 | Epsilon: 0.107 | P1 Wins (last 100): 41
+Ep 3500/10000 | Avg Rew (last 100): 8.10 | Avg Steps: 18.0 | Epsilon: 0.102 | P1 Wins (last 100): 47
+Model saved at episode 3500
+Ep 3600/10000 | Avg Rew (last 100): 7.38 | Avg Steps: 16.4 | Epsilon: 0.098 | P1 Wins (last 100): 50
+Ep 3700/10000 | Avg Rew (last 100): 6.67 | Avg Steps: 18.6 | Epsilon: 0.094 | P1 Wins (last 100): 38
+Ep 3800/10000 | Avg Rew (last 100): 6.46 | Avg Steps: 14.8 | Epsilon: 0.091 | P1 Wins (last 100): 42
+Ep 3900/10000 | Avg Rew (last 100): 7.61 | Avg Steps: 15.8 | Epsilon: 0.088 | P1 Wins (last 100): 39
+Ep 4000/10000 | Avg Rew (last 100): 7.49 | Avg Steps: 18.3 | Epsilon: 0.084 | P1 Wins (last 100): 42
+Model saved at episode 4000
+Ep 4100/10000 | Avg Rew (last 100): 7.39 | Avg Steps: 16.2 | Epsilon: 0.082 | P1 Wins (last 100): 42
+Ep 4200/10000 | Avg Rew (last 100): 7.84 | Avg Steps: 19.2 | Epsilon: 0.079 | P1 Wins (last 100): 47
+Ep 4300/10000 | Avg Rew (last 100): 7.49 | Avg Steps: 18.1 | Epsilon: 0.076 | P1 Wins (last 100): 52
+Ep 4400/10000 | Avg Rew (last 100): 7.76 | Avg Steps: 16.8 | Epsilon: 0.074 | P1 Wins (last 100): 56
+Ep 4500/10000 | Avg Rew (last 100): 7.77 | Avg Steps: 16.7 | Epsilon: 0.072 | P1 Wins (last 100): 40
+Model saved at episode 4500
+Ep 4600/10000 | Avg Rew (last 100): 7.13 | Avg Steps: 17.4 | Epsilon: 0.070 | P1 Wins (last 100): 46
+Ep 4700/10000 | Avg Rew (last 100): 8.32 | Avg Steps: 17.6 | Epsilon: 0.069 | P1 Wins (last 100): 49
+Ep 4800/10000 | Avg Rew (last 100): 6.54 | Avg Steps: 17.2 | Epsilon: 0.067 | P1 Wins (last 100): 33
+Ep 4900/10000 | Avg Rew (last 100): 7.49 | Avg Steps: 18.2 | Epsilon: 0.066 | P1 Wins (last 100): 37
+Ep 5000/10000 | Avg Rew (last 100): 6.62 | Avg Steps: 15.6 | Epsilon: 0.064 | P1 Wins (last 100): 46
+Model saved at episode 5000
+Ep 5100/10000 | Avg Rew (last 100): 7.62 | Avg Steps: 15.5 | Epsilon: 0.063 | P1 Wins (last 100): 43
+Ep 5200/10000 | Avg Rew (last 100): 6.96 | Avg Steps: 16.8 | Epsilon: 0.062 | P1 Wins (last 100): 39
+Ep 5300/10000 | Avg Rew (last 100): 8.16 | Avg Steps: 16.8 | Epsilon: 0.061 | P1 Wins (last 100): 51
+Ep 5400/10000 | Avg Rew (last 100): 7.14 | Avg Steps: 17.2 | Epsilon: 0.060 | P1 Wins (last 100): 46
+Ep 5500/10000 | Avg Rew (last 100): 6.60 | Avg Steps: 15.9 | Epsilon: 0.060 | P1 Wins (last 100): 37
+Model saved at episode 5500
+Ep 5600/10000 | Avg Rew (last 100): 6.57 | Avg Steps: 16.5 | Epsilon: 0.059 | P1 Wins (last 100): 40
+Ep 5700/10000 | Avg Rew (last 100): 6.17 | Avg Steps: 16.6 | Epsilon: 0.058 | P1 Wins (last 100): 50
+Ep 5800/10000 | Avg Rew (last 100): 6.60 | Avg Steps: 16.0 | Epsilon: 0.057 | P1 Wins (last 100): 35
+Ep 5900/10000 | Avg Rew (last 100): 7.43 | Avg Steps: 15.4 | Epsilon: 0.057 | P1 Wins (last 100): 49
+Ep 6000/10000 | Avg Rew (last 100): 7.94 | Avg Steps: 17.2 | Epsilon: 0.056 | P1 Wins (last 100): 41
+Model saved at episode 6000
+Ep 6100/10000 | Avg Rew (last 100): 7.41 | Avg Steps: 15.9 | Epsilon: 0.056 | P1 Wins (last 100): 41
+Ep 6200/10000 | Avg Rew (last 100): 7.34 | Avg Steps: 17.1 | Epsilon: 0.055 | P1 Wins (last 100): 39
+Ep 6300/10000 | Avg Rew (last 100): 6.96 | Avg Steps: 16.7 | Epsilon: 0.055 | P1 Wins (last 100): 43
+Ep 6400/10000 | Avg Rew (last 100): 7.37 | Avg Steps: 20.5 | Epsilon: 0.054 | P1 Wins (last 100): 50
+Ep 6500/10000 | Avg Rew (last 100): 7.84 | Avg Steps: 19.2 | Epsilon: 0.054 | P1 Wins (last 100): 38
+Model saved at episode 6500
+Ep 6600/10000 | Avg Rew (last 100): 6.23 | Avg Steps: 15.3 | Epsilon: 0.054 | P1 Wins (last 100): 41
+Ep 6700/10000 | Avg Rew (last 100): 7.27 | Avg Steps: 18.6 | Epsilon: 0.053 | P1 Wins (last 100): 38
+Ep 6800/10000 | Avg Rew (last 100): 7.75 | Avg Steps: 17.1 | Epsilon: 0.053 | P1 Wins (last 100): 43
+Ep 6900/10000 | Avg Rew (last 100): 7.14 | Avg Steps: 17.2 | Epsilon: 0.053 | P1 Wins (last 100): 46
+Ep 7000/10000 | Avg Rew (last 100): 7.28 | Avg Steps: 14.4 | Epsilon: 0.053 | P1 Wins (last 100): 38
+Model saved at episode 7000
+Ep 7100/10000 | Avg Rew (last 100): 6.44 | Avg Steps: 15.2 | Epsilon: 0.052 | P1 Wins (last 100): 38
+Ep 7200/10000 | Avg Rew (last 100): 7.40 | Avg Steps: 15.9 | Epsilon: 0.052 | P1 Wins (last 100): 49
+Ep 7300/10000 | Avg Rew (last 100): 6.63 | Avg Steps: 15.5 | Epsilon: 0.052 | P1 Wins (last 100): 36
+Ep 7400/10000 | Avg Rew (last 100): 7.22 | Avg Steps: 15.6 | Epsilon: 0.052 | P1 Wins (last 100): 48
+Ep 7500/10000 | Avg Rew (last 100): 6.33 | Avg Steps: 17.3 | Epsilon: 0.052 | P1 Wins (last 100): 37
+Model saved at episode 7500
+Ep 7600/10000 | Avg Rew (last 100): 8.48 | Avg Steps: 18.5 | Epsilon: 0.052 | P1 Wins (last 100): 42
+Ep 7700/10000 | Avg Rew (last 100): 6.62 | Avg Steps: 15.5 | Epsilon: 0.052 | P1 Wins (last 100): 43
+Ep 7800/10000 | Avg Rew (last 100): 7.32 | Avg Steps: 17.6 | Epsilon: 0.051 | P1 Wins (last 100): 38
+Ep 7900/10000 | Avg Rew (last 100): 6.48 | Avg Steps: 18.3 | Epsilon: 0.051 | P1 Wins (last 100): 42
+Ep 8000/10000 | Avg Rew (last 100): 7.23 | Avg Steps: 15.3 | Epsilon: 0.051 | P1 Wins (last 100): 50
+Model saved at episode 8000
+Ep 8100/10000 | Avg Rew (last 100): 7.80 | Avg Steps: 16.1 | Epsilon: 0.051 | P1 Wins (last 100): 51
+Ep 8200/10000 | Avg Rew (last 100): 6.92 | Avg Steps: 17.6 | Epsilon: 0.051 | P1 Wins (last 100): 50
+Ep 8300/10000 | Avg Rew (last 100): 7.35 | Avg Steps: 17.0 | Epsilon: 0.051 | P1 Wins (last 100): 50
+Ep 8400/10000 | Avg Rew (last 100): 7.54 | Avg Steps: 17.2 | Epsilon: 0.051 | P1 Wins (last 100): 45
+Ep 8500/10000 | Avg Rew (last 100): 8.25 | Avg Steps: 15.0 | Epsilon: 0.051 | P1 Wins (last 100): 44
+Model saved at episode 8500
+Ep 8600/10000 | Avg Rew (last 100): 7.75 | Avg Steps: 17.1 | Epsilon: 0.051 | P1 Wins (last 100): 40
+Ep 8700/10000 | Avg Rew (last 100): 6.74 | Avg Steps: 17.2 | Epsilon: 0.051 | P1 Wins (last 100): 40
+Ep 8800/10000 | Avg Rew (last 100): 7.42 | Avg Steps: 15.6 | Epsilon: 0.051 | P1 Wins (last 100): 48
+Ep 8900/10000 | Avg Rew (last 100): 7.44 | Avg Steps: 15.1 | Epsilon: 0.051 | P1 Wins (last 100): 46
+Ep 9000/10000 | Avg Rew (last 100): 6.86 | Avg Steps: 14.7 | Epsilon: 0.051 | P1 Wins (last 100): 40
+Model saved at episode 9000
+Ep 9100/10000 | Avg Rew (last 100): 8.51 | Avg Steps: 17.9 | Epsilon: 0.050 | P1 Wins (last 100): 42
+Ep 9200/10000 | Avg Rew (last 100): 6.20 | Avg Steps: 16.0 | Epsilon: 0.050 | P1 Wins (last 100): 38
+Ep 9300/10000 | Avg Rew (last 100): 7.29 | Avg Steps: 18.1 | Epsilon: 0.050 | P1 Wins (last 100): 51
+Ep 9400/10000 | Avg Rew (last 100): 7.98 | Avg Steps: 16.4 | Epsilon: 0.050 | P1 Wins (last 100): 43
+Ep 9500/10000 | Avg Rew (last 100): 7.61 | Avg Steps: 15.8 | Epsilon: 0.050 | P1 Wins (last 100): 43
+Model saved at episode 9500
+Ep 9600/10000 | Avg Rew (last 100): 7.36 | Avg Steps: 16.9 | Epsilon: 0.050 | P1 Wins (last 100): 41
+Ep 9700/10000 | Avg Rew (last 100): 6.00 | Avg Steps: 15.9 | Epsilon: 0.050 | P1 Wins (last 100): 40
+Ep 9800/10000 | Avg Rew (last 100): 6.79 | Avg Steps: 16.1 | Epsilon: 0.050 | P1 Wins (last 100): 41
+Ep 9900/10000 | Avg Rew (last 100): 7.08 | Avg Steps: 14.5 | Epsilon: 0.050 | P1 Wins (last 100): 40
+Ep 10000/10000 | Avg Rew (last 100): 8.02 | Avg Steps: 15.6 | Epsilon: 0.050 | P1 Wins (last 100): 50
+Model saved at episode 10000
+Training complete.
