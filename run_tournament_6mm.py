@@ -235,11 +235,11 @@ if __name__ == "__main__":
         "Random", 
         "Minimax-L1", 
         "Minimax-L2",
-        "Minimax-L3",  # Added higher level Minimax
+        # "Minimax-L3",  # Added higher level Minimax
         "RLDQNAgent", 
         "MDQNAgent", 
         "MCTS-Fast",
-        "MCTS-Deep"   # Added deeper MCTS
+        # "MCTS-Deep"   # Added deeper MCTS
     ]
     # agents_for_6mm_tournament = ["Random", "Minimax-L1"] # Quick test
     run_tournament_6mm(agents_for_6mm_tournament, NUM_GAMES_PER_MATCHUP)

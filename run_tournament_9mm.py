@@ -14,13 +14,13 @@ from game.board.Board import Board
 from game.board.BoardState import BoardState
 from game.util.Player import Player
 from engines.Minimax import Minimax
-from engines.RL_DQN_Agent import RLDQNAgent
-from engines.mDQN_Agent import MDQNAgent
-from engines.MonteCarlo import MonteCarloTreeSearch  # Uncommented for MCTS support
+from engines.RL_DQN_Agent9mm import RLDQNAgent  # Import the new 9mm-specific adapter
+from engines.mDQN_Agent9mm import MDQNAgent
+from engines.MonteCarlo import MonteCarloTreeSearch
 
 # --- Tournament Configuration ---
 BOARD_CLASS = NineMensMorrisBoard
-NUM_GAMES_PER_MATCHUP = 20  # Start very low for 9MM due to game length/complexity
+NUM_GAMES_PER_MATCHUP = 10  # Start very low for 9MM due to game length/complexity
 MAX_MOVES_PER_GAME = 350  # Increased significantly
 
 MODELS_DIR = "models"
@@ -53,7 +53,7 @@ def get_agent_instance(agent_name: str, board: Board, player_id: Player):
     # Added MCTS variants
     if agent_name == "MCTS-Fast":
         agent = MonteCarloTreeSearch(board)
-        agent.time_limit = 0.1  # Fast version - shorter thinking time
+        agent.time_limit = 0.04  # Fast version - shorter thinking time
         return agent
     if agent_name == "MCTS-Deep":
         agent = MonteCarloTreeSearch(board)
@@ -182,7 +182,7 @@ def run_tournament_9mm(agents_to_test: List[str], num_games: int):
                             matchup_results[a1_name][a2_name] += 1  # Track win in matrix
                         else:
                             results[a1_name]["draws"] += 1; results[a2_name]["draws"] += 1; stats["draws"] += 1
-                        results[a2_name]["played_white"] += 1;
+                        results[a2_name]["played_white"] += 1
                         results[a1_name]["played_black"] += 1
                         
                         # Track timing data for swapped games
@@ -242,11 +242,11 @@ if __name__ == "__main__":
         "Random", 
         "Minimax-L1", 
         "Minimax-L2",  # Higher levels likely too slow
-        "Minimax-L3"
+        # "Minimax-L3"
         "RLDQNAgent", 
         "MDQNAgent",
         "MCTS-Fast",
-        "MCTS-Deep"
+        # "MCTS-Deep"
     ]
     # For quick testing: agents_for_9mm_tournament = ["Random", "Minimax-L1"]
     run_tournament_9mm(agents_for_9mm_tournament, NUM_GAMES_PER_MATCHUP)
