@@ -93,4 +93,3 @@ class BoardState:
         self.pieces_left_to_place_by_player[Player.WHITE] = int_representation % 3**3
         int_representation //= 3**3
         self.pieces_left_to_place_by_player[Player.BLACK] = int_representation % 3**3
-

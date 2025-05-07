@@ -22,7 +22,7 @@ ROOT_MODELS_DIR = "models"  # Used to ensure the base 'models' directory exists 
 LOG_FILE_PATH = f"training_mdqn_log_{BOARD_TYPE().board_size}mm.txt"  # Log file in the root directory
 
 # Training Hyperparameters
-NUM_EPISODES = 30000
+NUM_EPISODES = 10000
 MAX_STEPS_PER_EPISODE = 100
 # SAVE_MODEL_EVERY_N_EPISODES: MDQNAgent.save_models() will be called based on this
 SAVE_MODEL_EVERY_N_EPISODES = 1000
